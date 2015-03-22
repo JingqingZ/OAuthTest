@@ -9,6 +9,7 @@ var bodyParser = require('body-parser');
 //var db = monk('localhost:27017/userdb');
 
 var index = require('./routes/index');
+var userlist = require('./routes/userlist');
 var authorize = require('./routes/authorize');
 //var userlist = require('./routes/userlist')
 
@@ -34,7 +35,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/authorize', authorize)
-//app.use('/userlist', userlist)
+app.use('/userlist', userlist)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
