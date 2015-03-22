@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var MongoClient = require('mongodb').MongoClient
 var format = require('util').format;
+var bl = require('bl')
 var key = '2627706825'
 var secret = '773eb51c7411b179002758188b92da92'
 var reuri = 'zjq.101a.net/authorize/getcode'
@@ -31,15 +32,15 @@ function getAccessToken(code, callback) {
     var http = require("http")
     var req = http.request(opt, function (serverFeedback) {
     	console.log("in request");
-        if (serverFeedback.statusCode == 200) {
-            console.log("in 200");
-            var body = "";
-            serverFeedback.on('data', function (data) { body += data; })
-                          .on('end', function () { callback(body) });
-        }
-        else {
-            callback(null);
-        }
+    	serverFeedback.pipe(bl(function(err, data){
+    		if (err) {
+    			callback(null)
+    		}
+    		else {
+    			console.log(body);
+    			callback(body);
+    		}
+    	}))
     });
     req.write(data + "\n");
     req.end();
