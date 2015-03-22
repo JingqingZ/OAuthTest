@@ -6,6 +6,43 @@ var key = '2627706825'
 var secret = '773eb51c7411b179002758188b92da92'
 var reuri = 'zjq.101a.net/authorize/getcode'
 
+function getAccessToken(code, callback) {
+
+    var data = {
+        "client_id": key,
+        "client_secret": secret,
+        "grant_type": authorization_code,
+        "redirect_uri": reuri,
+        "code": code
+    };
+
+    data = require('querystring').stringify(data);
+    console.log(data);
+    var opt = {
+        method: "POST",
+        host: "api.weibo.com",
+        port: 443,
+        path: "/oauth2/access_token",
+        headers: {
+            "Content-Type": 'application/x-www-form-urlencoded',
+            "Content-Length": data.length
+        }
+    };
+
+    var req = http.request(opt, function (serverFeedback) {
+        if (serverFeedback.statusCode == 200) {
+            var body = "";
+            serverFeedback.on('data', function (data) { body += data; })
+                          .on('end', function () { callback(body) });
+        }
+        else {
+            res.send(500, "error");
+        }
+    });
+    req.write(data + "\n");
+    req.end();
+}
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
 	res.redirect('https://api.weibo.com/oauth2/authorize?client_id=' + key + '&response_type=code&redirect_uri=' + reuri);
@@ -44,42 +81,5 @@ router.get('/getcode', function(req, res){
 	}
 	
 })
-
-exports.getAccessToken = function (code, callback) {
-
-    var data = {
-        "client_id": key,
-        "client_secret": secret,
-        "grant_type": authorization_code,
-        "redirect_uri": reuri,
-        "code": code
-    };
-
-    data = require('querystring').stringify(data);
-    console.log(data);
-    var opt = {
-        method: "POST",
-        host: "api.weibo.com",
-        port: 443,
-        path: "/oauth2/access_token",
-        headers: {
-            "Content-Type": 'application/x-www-form-urlencoded',
-            "Content-Length": data.length
-        }
-    };
-
-    var req = http.request(opt, function (serverFeedback) {
-        if (serverFeedback.statusCode == 200) {
-            var body = "";
-            serverFeedback.on('data', function (data) { body += data; })
-                          .on('end', function () { callback(body) });
-        }
-        else {
-            res.send(500, "error");
-        }
-    });
-    req.write(data + "\n");
-    req.end();
-}
 
 module.exports = router;
