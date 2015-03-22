@@ -5,6 +5,7 @@ var format = require('util').format;
 var key = '2627706825'
 var secret = '773eb51c7411b179002758188b92da92'
 var reuri = 'zjq.101a.net/authorize/getcode'
+var http = require("http")
 
 function getAccessToken(code, callback) {
 
@@ -36,7 +37,7 @@ function getAccessToken(code, callback) {
                           .on('end', function () { callback(body) });
         }
         else {
-            res.send(500, "error");
+            callback(null);
         }
     });
     req.write(data + "\n");
