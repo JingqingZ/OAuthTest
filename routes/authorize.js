@@ -37,6 +37,7 @@ function getAccessToken(code, callback) {
     			callback(null)
     		}
     		else {
+    			data = data.toString()
     			console.log(data);
     			callback(data);
     		}
