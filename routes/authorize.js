@@ -61,7 +61,7 @@ router.get('/getcode', function(req, res){
 		        collection.insert({"code":code, "data": {}}, function(err, docs) {
 		        	getAccessToken(code, function(body){
 		        		console.log(body);
-		        		res(body);
+		        		res.end(body);
 		        	});
 		        	//res.redirect('https://api.weibo.com/oauth2/access_token?client_id=' + key + '&client_secret=' + secret + '&grant_type=authorization_code&redirect_uri=' + reuri + '&code=' + code);
 		            /*collection.find().toArray(function(err, results) {
