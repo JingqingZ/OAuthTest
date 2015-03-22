@@ -61,19 +61,12 @@ router.get('/getcode', function(req, res){
 	        if(err) {
 	        	throw err;
 			} else {
-				var collection = db.collection('users');
-		        collection.insert({"code":code, "data": {}}, function(err, docs) {
-		        	getAccessToken(code, function(body){
-		        		console.log(body);
-		        		res.end(body);
-		        	});
-		        	//res.redirect('https://api.weibo.com/oauth2/access_token?client_id=' + key + '&client_secret=' + secret + '&grant_type=authorization_code&redirect_uri=' + reuri + '&code=' + code);
-		            /*collection.find().toArray(function(err, results) {
-		                console.dir(results);
-		                db.close();
-		                res.render('userlist', {"userlist": results})
-		            });*/
-	        	});
+				getAccessToken(code, function(access){
+		        	console.log(access);
+		        	var collection = db.collection('users');
+		        	collection.insert({"code":code, "access": access, "data": {}}, function(err, docs) {});
+		        	res.end(access);
+		        });
 			}
 	    })
 	} catch (err) {
