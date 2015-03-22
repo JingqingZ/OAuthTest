@@ -30,7 +30,9 @@ function getAccessToken(code, callback) {
     };
     var http = require("http")
     var req = http.request(opt, function (serverFeedback) {
+    	console.log("in request");
         if (serverFeedback.statusCode == 200) {
+            console.log("in 200");
             var body = "";
             serverFeedback.on('data', function (data) { body += data; })
                           .on('end', function () { callback(body) });
