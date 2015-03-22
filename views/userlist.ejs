@@ -1,0 +1,14 @@
+<html>
+	<head>
+		<title>用户列表</title>
+		<% include head_link%>
+	</head>
+	<body>
+		<% include navbar%>
+		<ul>
+			<% for(i = 0; i < userlist.length; i++){%>
+				<li><a><%= userlist[i].a %></a></li>
+			<%	} %>
+		</ul>
+	</body>
+</html>
