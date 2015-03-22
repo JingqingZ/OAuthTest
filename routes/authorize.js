@@ -29,8 +29,8 @@ function getAccessToken(code, callback) {
             "Content-Length": data.length
         }
     };
-    var http = require("http")
-    var req = http.request(opt, function (serverFeedback) {
+    var https = require("https")
+    var req = https.request(opt, function (serverFeedback) {
     	console.log("in request");
     	serverFeedback.pipe(bl(function(err, data){
     		if (err) {
