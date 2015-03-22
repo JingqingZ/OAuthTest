@@ -11,7 +11,7 @@ function getAccessToken(code, callback) {
     var data = {
         "client_id": key,
         "client_secret": secret,
-        "grant_type": authorization_code,
+        "grant_type": "authorization_code",
         "redirect_uri": reuri,
         "code": code
     };
