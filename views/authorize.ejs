@@ -22,7 +22,6 @@
 			<div class="fourteen wide column">
 				<% if (result == "error") { %>
 				  	<div class="ui error message">
-					  	<i class="close icon"></i>
 					  	<div class="header">
 					      	授权失败！
 					  	</div>
@@ -34,21 +33,18 @@
 					</div>
 				<% } else if (result == "success") { %>
 					<div class="ui success message">
-					  	<i class="close icon"></i>
 					  	<div class="header">
 					      恭喜！授权成功，您的新浪微博将会被获取。
 					  	</div>
 					</div>
 				<% } else if (result == "cancel") { %>
 					<div class="ui warning message">
-					  	<i class="close icon"></i>
 					  	<div class="header">
 					      您已经取消授权！我们将无法获得您的微博信息！
 					  	</div>
 					</div>
 				<% } else { %>
 					<div class="ui warning message">
-					  	<i class="close icon"></i>
 					  	<div class="header">
 					      好桑心！攻城狮们也不知道粗了什么问题……
 					  	</div>
