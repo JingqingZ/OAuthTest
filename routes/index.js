@@ -91,11 +91,12 @@ router.get('/', function(req, res, next) {
 						});
 					} else {
 						var stat = [], users = [];
+						console.log(JSON.stringify(user))
 						for (var i = 0; i < data.length; i++) {
 							if(data[i] == null)
 								continue;
 							stat = stat.concat(data[i].statuses);
-							users = users.concat(user[i]);
+							//users = users.concat(user[i]);
 						};
 						//res.end(JSON.stringify(stat));
 						res.render('index', {"data": stat, "users": users});
