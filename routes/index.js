@@ -23,6 +23,23 @@ function getWeibo(access_token, uid, since_id, max_id, count, callback){
 	});
 }
 
+function getUser(access_token, uid, callback){
+	https.get("https://api.weibo.com/2/statuses/user_timeline.json?access_token="+access_token+"&uid="+uid, 
+			function(res) {
+		//console.log("Got response: " + res.statusCode);
+		res.pipe(bl(function(err, data){
+			if (err) {
+				callback(err, null);
+			}else{
+				callback(null, data);
+			}
+		}))
+	}).on('error', function(err) {
+		//console.log("Got error: " + err.message);
+		callback(err, null)
+	});
+}
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
 	MongoClient.connect('mongodb://127.0.0.1:27017/weibodb', function(err, db) {
@@ -55,15 +72,17 @@ router.get('/', function(req, res, next) {
 							data = JSON.parse(data)
 							if(typeof(data.statuses) == 'undefined'){
 				    			collection.remove({"access_token": item.access_token}, function(err, docs) {});
-				    			done(null, null);
+				    			done(null, null, null);
 				    		} else {
-				    			done(null, data);
+				    			getUser(item.access_token, item.uid, function(err, user){
+				    				done(null, data, user);
+				    			})
 				    		}
 							//res.render('index', {"data": JSON.parse(data)});
 						}
 					})
 		        },
-		        function(err, data){
+		        function(err, data, user){
 		        	if (err) {
 						res.status(err.status || 500);
 						res.render('error', {
@@ -71,14 +90,15 @@ router.get('/', function(req, res, next) {
 							error: {}
 						});
 					} else {
-						var stat = [];
+						var stat = [], users = [];
 						for (var i = 0; i < data.length; i++) {
 							if(data[i] == null)
 								continue;
 							stat = stat.concat(data[i].statuses);
+							users = users.concat(user[i]);
 						};
 						//res.end(JSON.stringify(stat));
-						res.render('index', {"data": stat});
+						res.render('index', {"data": stat, "users": users});
 					}
 		        	// Let's close the db 
 					db.close();

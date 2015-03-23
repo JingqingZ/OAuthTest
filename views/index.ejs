@@ -46,16 +46,20 @@
 		              	</div>
 		            </div>
 		            <h4 class="ui red header">用户列表</h4>
-		          	<div class="event">
-		          		<div class="label">
-					       	
-					     </div>
-		              	<div class="content">
-		                  	<div class="summary">
-		                      
-		                  	</div>
-		              	</div>
-		            </div>
+		          	<% for(i = 0; i < users.length; i++){%>
+						<div class="event">
+					      	<div class="label">
+					        	<a href="<%= users[i].url%>" target="_blank">
+					        		<img src=<%= users[i].profile_image_url%>>
+					        	</a>
+					      	</div>
+					      	<div class="content">
+					          	<div class="summary">
+					            	<a href="<%= users[i].url%>" target="_blank"><%= users[i].screen_name%></a>
+					          	</div>
+					      </div>
+					  	</div>
+					<%	} %>
 		        </div>
 			</div>
 		</div>
