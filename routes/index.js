@@ -18,7 +18,7 @@ function getWeibo(access_token, uid, since_id, max_id, count, callback){
 /* GET home page. */
 router.get('/', function(req, res, next) {
 	getWeibo("2.005fnqRBJaaprC3c26a3e84a1RfIfB", "1179914522", 0, 0, 10, function(err, data){
-		if (e) {
+		if (err) {
 			res.status(err.status || 500);
 			res.render('error', {
 				message: err.message,
