@@ -18,16 +18,43 @@
 		<% include navbar%>
 		<ul>
 			<% if (result == "error") { %>
-			  	<h2>授权失败！</h2>
+			  	<div class="ui error message">
+				  	<i class="close icon"></i>
+				  	<div class="header">
+				      	授权失败！
+				  	</div>
+				  	<ul class="list">
+				      	<li>OAuth2.0授权失败！</li>
+				      	<li>您可能重复使用了之前的授权码！</li>
+				      	<li>可重新点击右上角“授权”按钮重新授权。</li>
+				  	</ul>
+				</div>
 			<% } else if (result == "success") { %>
-				<h2>授权成功！</h2>
+				<div class="ui success message">
+				  	<i class="close icon"></i>
+				  	<div class="header">
+				      恭喜！授权成功，您的新浪微博将会被获取。
+				  	</div>
+				</div>
 			<% } else if (result == "cancel") { %>
-				<h2>取消授权！</h2>
+				<div class="ui warning message">
+				  	<i class="close icon"></i>
+				  	<div class="header">
+				      您已经取消授权！我们将无法获得您的微博信息！
+				  	</div>
+				</div>
 			<% } else { %>
-				<h2>未知结果！</h2>
+				<div class="ui warning message">
+				  	<i class="close icon"></i>
+				  	<div class="header">
+				      好桑心！攻城狮们也不知道粗了什么问题……
+				  	</div>
+				</div>
 			<% } %>
 		</ul>
-		<span id="jumpTo">5</span>秒后自动跳转回主页
-		<script type="text/javascript">countDown(5,'http://zjq.101a.net');</script> 
+		<div class="ui large message">
+  			<span id="jumpTo">3</span>秒后自动跳转回主页
+			<script type="text/javascript">countDown(3,'http://zjq.101a.net');</script> 
+        </div>
 	</body>
 </html>
