@@ -2,10 +2,10 @@ var express = require('express');
 var router = express.Router();
 var MongoClient = require('mongodb').MongoClient
 var format = require('util').format;
-var http = require('http')
+var https = require('https')
 
 function getWeibo(access_token, uid, since_id, max_id, count, callback){
-	http.get("https://api.weibo.com/2/statuses/user_timeline.json?access_token="+access_token+"&uid="+uid+"&since_id="+since_id+"&max_id="+max_id+"&count="+count, 
+	https.get("https://api.weibo.com/2/statuses/user_timeline.json?access_token="+access_token+"&uid="+uid+"&since_id="+since_id+"&max_id="+max_id+"&count="+count, 
 			function(res) {
 		console.log("Got response: " + res.statusCode);
 		callback(null, res);
