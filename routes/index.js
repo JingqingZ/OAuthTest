@@ -25,7 +25,7 @@ router.get('/', function(req, res, next) {
 				error: {}
 			});
 		} else {
-			data = JSON.parse(data.toString());
+			//data = JSON.parse(data.toString());
 			res.render('index', {"data": data});
 		}
 	})
