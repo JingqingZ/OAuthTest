@@ -42,23 +42,8 @@ router.get('/', function(req, res, next) {
 		    			collection.remove(userinfo);
 		    		} else {
 		    			allusers[allusers.length] = userinfo;
-		    			/*getWeibo(userinfo.access_token, userinfo.uid, 0, 0, 3, function(err, data){
-							if (err) {
-								res.status(err.status || 500);
-								res.render('error', {
-									message: err.message,
-									error: {}
-								});
-							} else {
-								//data = JSON.parse(data.toString());
-								//console.log(data.toString());
-								res.render('index', {"data": JSON.parse(data)});
-							}
-						})*/
 		    		}
 		    	});
-		        // Let's close the db 
-		        db.close();
 		        //res.end(JSON.stringify(allusers));
 		        async.map(allusers, function(item, done){
 		        	getWeibo(item.access_token, item.uid, 0, 0, 3, function(err, data){
@@ -67,7 +52,13 @@ router.get('/', function(req, res, next) {
 						} else {
 							//data = JSON.parse(data.toString());
 							//console.log(data.toString());
-							done(null, JSON.parse(data));
+							data = JSON.parse(data)
+							if(typeof(data.statuses) == 'undefined'){
+				    			collection.remove({"access_token": item.access_token});
+				    			done(null, null);
+				    		} else {
+				    			done(null, data);
+				    		}
 							//res.render('index', {"data": JSON.parse(data)});
 						}
 					})
@@ -87,6 +78,8 @@ router.get('/', function(req, res, next) {
 						//res.end(JSON.stringify(stat));
 						res.render('index', {"data": stat});
 					}
+		        	// Let's close the db 
+					db.close();
 		        })
 		     });
 		}
