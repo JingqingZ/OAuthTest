@@ -71,10 +71,10 @@ router.get('/getcode', function(req, res){
 		        	if(access == null) {
 		        		res.end("Error!");
 		        	} else {
-		        		console.log(access);
+		        		console.log(access.toString());
 			        	var collection = db.collection('users');
 			        	collection.insert({"code":code, "access": access, "data": {}}, function(err, docs) {});
-			        	res.end(access);
+			        	res.end(access.toString());
 		        	}
 		        });
 			}
