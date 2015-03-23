@@ -1,0 +1,20 @@
+<html>
+	<head>
+		<title>授权结果</title>
+		<% include head_link%>
+	</head>
+	<body>
+		<% include navbar%>
+		<ul>
+			<% if (result == "error") { %>
+			  	<h2>授权失败！</h2>
+			<% } else if (result == "success") { %>
+				<h2>授权失败！</h2>
+			<% } else if (result == "cancel") { %>
+				<h2>取消授权！</h2>
+			<% } else { %>
+				<h2>未知结果！</h2>
+			<% } %>
+		</ul>
+	</body>
+</html>
