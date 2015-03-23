@@ -31,7 +31,7 @@ function getAccessToken(code, callback) {
     };
     var https = require("https")
     var req = https.request(opt, function (serverFeedback) {
-    	console.log("in request");
+    	//console.log("in request");
     	serverFeedback.pipe(bl(function(err, data){
     		if (err) {
                 console.log('Error! Authorize feedback error!');
@@ -73,7 +73,7 @@ router.get('/getcode', function(req, res){
                         //alert("【错误】授权失败！")
 		        		res.render('authorize', {'result': "error"});
 		        	} else {
-		        		//console.log(access.toString());
+		        		console.log(access.toString());
 			        	var collection = db.collection('users');
                         collection.remove({"uid": access.uid}, function(err, docs) {});
 			        	collection.insert(access, function(err, docs) {});
