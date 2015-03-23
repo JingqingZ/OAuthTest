@@ -79,6 +79,7 @@ router.get('/', function(req, res, next) {
 										done(err);
 									} else {
 										user = JSON.parse(user);
+										console.log(JSON.stringify(user));
 										done(null, data, user);
 									}
 				    			})
