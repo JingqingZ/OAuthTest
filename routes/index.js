@@ -59,7 +59,7 @@ router.get('/', function(req, res, next) {
 		    	});
 		        // Let's close the db 
 		        db.close();
-		        res.end(allusers);
+		        res.end(allusers.toString());
 		        /*async.map(allusers, function(item, done){
 		        	getWeibo(item.access.access_token, item.access.uid, 0, 0, 3, function(err, data){
 						if (err) {
