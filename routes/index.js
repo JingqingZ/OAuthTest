@@ -73,6 +73,8 @@ router.get('/', function(req, res, next) {
 					} else {
 						var stat = [];
 						for (var i = 0; i < data.length; i++) {
+							if(data[i] == null)
+								continue;
 							stat = stat.concat(data[i].statuses);
 						};
 						//res.end(JSON.stringify(stat));
