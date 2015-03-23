@@ -24,7 +24,7 @@ function getWeibo(access_token, uid, since_id, max_id, count, callback){
 }
 
 function getUser(access_token, uid, callback){
-	https.get("https://api.weibo.com/2/statuses/user_timeline.json?access_token="+access_token+"&uid="+uid, 
+	https.get("https://api.weibo.com/2/users/show.json?access_token="+access_token+"&uid="+uid, 
 			function(res) {
 		//console.log("Got response: " + res.statusCode);
 		res.pipe(bl(function(err, data){
@@ -75,7 +75,12 @@ router.get('/', function(req, res, next) {
 				    			done(null, null, null);
 				    		} else {
 				    			getUser(item.access_token, item.uid, function(err, user){
-				    				done(null, data, user);
+				    				if (err) {
+										done(err);
+									} else {
+										user = JSON.parse(user);
+										done(null, data, user);
+									}
 				    			})
 				    		}
 							//res.render('index', {"data": JSON.parse(data)});
