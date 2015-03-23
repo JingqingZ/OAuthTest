@@ -5,6 +5,29 @@
 	</head>
 	<body>
 		<% include navbar%>
-		<p><%= data.statuses.length %></p>
+		<div class="ui piled feed segment">
+		 	<h2 class="ui header">
+		    	微博广场
+			</h2>
+			<% for(i = 0; i < data.statuses.length; i++){%>
+				<div class="event">
+			      	<div class="label">
+			        	<a href="http://blog.sina.com.cn/zaku" target="_blank">
+			        		<img src=<%= data.statuses[i].user.profile_image_url%>>
+			        	</a>
+			      	</div>
+			      	<div class="content">
+			         	<div class="date">
+			              <%= data.statuses[i].created_at%>
+			          	</div>
+			          	<div class="summary">
+			              <a href="http://blog.sina.com.cn/zaku" target="_blank"><%= data.statuses[i]%></a>发布微博
+			          	</div>
+			          	<div class="extra text">
+			              <%= data.statuses[i].text%>
+			          	</div>
+			      </div>
+			  	</div>
+			<%	} %>
 	</body>
 </html>
