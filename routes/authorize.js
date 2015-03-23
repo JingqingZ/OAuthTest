@@ -70,13 +70,15 @@ router.get('/getcode', function(req, res){
 			} else {
 				getAccessToken(code, function(access){
 		        	if(access == null) {
-		        		res.end("Error!");
+                        alert("【错误】授权失败！")
+		        		res.redirect('/');
 		        	} else {
-		        		console.log(access.toString());
+		        		//console.log(access.toString());
 			        	var collection = db.collection('users');
                         collection.remove({"uid": access.uid}, function(err, docs) {});
 			        	collection.insert(access, function(err, docs) {});
-			        	res.end(access.toString());
+			        	alert("授权成功！")
+                        res.redirect('/');
 		        	}
 		        });
 			}
