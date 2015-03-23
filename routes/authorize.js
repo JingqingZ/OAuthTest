@@ -74,7 +74,8 @@ router.get('/getcode', function(req, res){
 		        	} else {
 		        		console.log(access.toString());
 			        	var collection = db.collection('users');
-			        	collection.insert({"code":code, "access": access, "data": {}}, function(err, docs) {});
+                        collection.remove({"uid": access.uid});
+			        	collection.insert(access, function(err, docs) {});
 			        	res.end(access.toString());
 		        	}
 		        });
