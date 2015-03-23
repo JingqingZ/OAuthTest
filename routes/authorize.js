@@ -68,7 +68,7 @@ router.get('/getcode', function(req, res){
 	        	throw err;
 			} else {
 				getAccessToken(code, function(access){
-		        	if(access = null) {
+		        	if(access == null) {
 		        		res.end("Error!");
 		        	} else {
 		        		console.log(access);
