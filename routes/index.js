@@ -33,8 +33,8 @@ router.get('/', function(req, res, next) {
 			});
 		} else {
 			//data = JSON.parse(data.toString());
-			console.log(data);
-			res.render('index', {"data": data});
+			console.log(data.toString());
+			res.render('index', {"data": JSON.parse(data)});
 		}
 	})
 });
