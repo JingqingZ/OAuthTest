@@ -24,6 +24,24 @@ function getWeibo(access_token, uid, since_id, max_id, count, callback){
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+	MongoClient.connect('mongodb://127.0.0.1:27017/weibodb', function(err, db) {
+		if (err) {
+			res.status(err.status || 500);
+			res.render('error', {
+				message: err.message,
+				error: {}
+			});
+		} else {
+			var collection = db.collection('users');
+			collection.find().toArray(function(err, results) {
+		    	console.dir(results);
+
+		        // Let's close the db 
+		        db.close();
+		     });
+		}
+
+	}
 	getWeibo("2.005fnqRBJaaprC3c26a3e84a1RfIfB", "1179914522", 0, 0, 10, function(err, data){
 		if (err) {
 			res.status(err.status || 500);
