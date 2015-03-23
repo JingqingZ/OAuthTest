@@ -6,9 +6,9 @@
 	<body>
 		<% include navbar%>
 		<div class="ui grid">
-			<div class="three wide column">
+			<div class="two wide column">
 			</div>
-			<div class="ten wide column">
+			<div class="twelve wide column">
 				<div class="ui small piled feed segment">
 				 	<h2 class="ui header">
 				    	微博广场
@@ -25,7 +25,7 @@
 					              <%= data.statuses[i].created_at%>
 					          	</div>
 					          	<div class="summary">
-					              <a href="http://blog.sina.com.cn/zaku" target="_blank"><%= data.statuses[i]%></a>发布微博
+					              <a href="http://blog.sina.com.cn/zaku" target="_blank"><%= data.statuses[i].screen_name%></a>发布微博
 					          	</div>
 					          	<div class="extra text">
 					              <%= data.statuses[i].text%>
