@@ -80,7 +80,11 @@ router.get('/', function(req, res, next) {
 							error: {}
 						});
 					} else {
-						res.end(JSON.stringify(data));
+						var stat = [];
+						for (var i = 0; i < data.length; i++) {
+							stat = stat.concat(data[i].statuses);
+						};
+						res.end(JSON.stringify(stat));
 						//res.render('index', {"data": data});
 					}
 		        })
