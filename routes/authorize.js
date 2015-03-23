@@ -34,11 +34,17 @@ function getAccessToken(code, callback) {
     	console.log("in request");
     	serverFeedback.pipe(bl(function(err, data){
     		if (err) {
-    			callback(null)
+                console.log('Error! Authorize feedback error!');
+    			callback(null);
     		}
     		else {
-    			data = data.toString()
-    			console.log(data);
+    			data = data.toString();
+    			data = JSON.parse(data);
+                if (typeof(datajson.access_token) == 'undefined') {
+                    console.log('Error! Get Access Token error!');
+                    callback(null);
+                }
+                //console.log(data);
     			callback(data);
     		}
     	}))
@@ -62,10 +68,14 @@ router.get('/getcode', function(req, res){
 	        	throw err;
 			} else {
 				getAccessToken(code, function(access){
-		        	console.log(access);
-		        	var collection = db.collection('users');
-		        	collection.insert({"code":code, "access": access, "data": {}}, function(err, docs) {});
-		        	res.end(access);
+		        	if(access = null) {
+		        		res.end("Error!");
+		        	} else {
+		        		console.log(access);
+			        	var collection = db.collection('users');
+			        	collection.insert({"code":code, "access": access, "data": {}}, function(err, docs) {});
+			        	res.end(access);
+		        	}
 		        });
 			}
 	    })
