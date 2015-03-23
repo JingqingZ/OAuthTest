@@ -13,22 +13,22 @@
 				 	<h2 class="ui header">
 				    	微博广场
 					</h2>
-					<% for(i = 0; i < data.statuses.length; i++){%>
+					<% for(i = 0; i < data.length; i++){%>
 						<div class="event">
 					      	<div class="label">
-					        	<a href="<%= data.statuses[i].user.url%>" target="_blank">
-					        		<img src=<%= data.statuses[i].user.profile_image_url%>>
+					        	<a href="<%= data[i].user.url%>" target="_blank">
+					        		<img src=<%= data[i].user.profile_image_url%>>
 					        	</a>
 					      	</div>
 					      	<div class="content">
 					         	<div class="date">
-					              	<%= data.statuses[i].created_at%>
+					              	<%= data[i].created_at%>
 					          	</div>
 					          	<div class="summary">
-					            	<a href="<%= data.statuses[i].user.url%>" target="_blank"><%= data.statuses[i].user.screen_name%></a>发布微博
+					            	<a href="<%= data[i].user.url%>" target="_blank"><%= data[i].user.screen_name%></a>发布微博
 					          	</div>
 					          	<div class="extra text">
-					              	<%= data.statuses[i].text%>
+					              	<%= data[i].text%>
 					          	</div>
 					      </div>
 					  	</div>
