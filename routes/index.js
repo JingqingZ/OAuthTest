@@ -38,11 +38,11 @@ router.get('/', function(req, res, next) {
 			collection.find().toArray(function(err, results) {
 		    	//console.dir(results);
 		    	results.forEach(function(userinfo){
-		    		if(typeof(userinfo.access.access_token) == 'undefined'){
+		    		if(typeof(userinfo.access_token) == 'undefined'){
 		    			collection.remove(userinfo);
 		    		} else {
 		    			allusers[allusers.length] = userinfo;
-		    			/*getWeibo(userinfo.access.access_token, userinfo.access.uid, 0, 0, 3, function(err, data){
+		    			/*getWeibo(userinfo.access_token, userinfo.uid, 0, 0, 3, function(err, data){
 							if (err) {
 								res.status(err.status || 500);
 								res.render('error', {
@@ -61,7 +61,7 @@ router.get('/', function(req, res, next) {
 		        db.close();
 		        //res.end(JSON.stringify(allusers));
 		        async.map(allusers, function(item, done){
-		        	getWeibo(item.access.access_token, item.access.uid, 0, 0, 3, function(err, data){
+		        	getWeibo(item.access_token, item.uid, 0, 0, 3, function(err, data){
 						if (err) {
 							done(err);
 						} else {
