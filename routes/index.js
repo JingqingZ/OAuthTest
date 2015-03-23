@@ -79,7 +79,7 @@ router.get('/', function(req, res, next) {
 										done(err);
 									} else {
 										user = JSON.parse(user);
-										console.log(JSON.stringify(user));
+										//console.log(JSON.stringify(user));
 										done(null, [data, user]);
 									}
 				    			})
@@ -97,12 +97,12 @@ router.get('/', function(req, res, next) {
 						});
 					} else {
 						var stat = [], users = [];
-						console.log(JSON.stringify(info[0][1]))
+						//console.log(JSON.stringify(info[0][1]))
 						for (var i = 0; i < info.length; i++) {
 							if(info[i][0] == null)
 								continue;
 							stat = stat.concat(info[i][0].statuses);
-							//users = users.concat(user[i]);
+							users = users.concat(info[i][1]);
 						};
 						//res.end(JSON.stringify(stat));
 						res.render('index', {"data": stat, "users": users});
