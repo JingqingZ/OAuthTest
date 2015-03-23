@@ -84,8 +84,8 @@ router.get('/', function(req, res, next) {
 						for (var i = 0; i < data.length; i++) {
 							stat = stat.concat(data[i].statuses);
 						};
-						res.end(JSON.stringify(stat));
-						//res.render('index', {"data": data});
+						//res.end(JSON.stringify(stat));
+						res.render('index', {"data": stat});
 					}
 		        })
 		     });
