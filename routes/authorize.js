@@ -43,9 +43,10 @@ function getAccessToken(code, callback) {
                 if (typeof(data.access_token) == 'undefined') {
                     console.log('Error! Get Access Token error!');
                     callback(null);
+                } else {
+                    //console.log(data);
+                    callback(data);
                 }
-                //console.log(data);
-    			callback(data);
     		}
     	}))
     });
