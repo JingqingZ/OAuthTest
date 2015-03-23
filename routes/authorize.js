@@ -57,7 +57,6 @@ function getAccessToken(code, callback) {
 /* GET home page. */
 router.get('/', function(req, res, next) {
 	res.redirect('https://api.weibo.com/oauth2/authorize?client_id=' + key + '&response_type=code&redirect_uri=' + reuri);
-
 });
 
 router.get('/getcode', function(req, res){
@@ -90,7 +89,10 @@ router.get('/getcode', function(req, res){
 			error: {}
 		});
 	}
-	
 })
+
+router.get('/cancel', function(req, res, next) {
+    res.render('authorize', {'result': "cancel"});
+});
 
 module.exports = router;
