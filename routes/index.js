@@ -59,8 +59,8 @@ router.get('/', function(req, res, next) {
 		    	});
 		        // Let's close the db 
 		        db.close();
-		        res.end(JSON.stringify(allusers));
-		        /*async.map(allusers, function(item, done){
+		        //res.end(JSON.stringify(allusers));
+		        async.map(allusers, function(item, done){
 		        	getWeibo(item.access.access_token, item.access.uid, 0, 0, 3, function(err, data){
 						if (err) {
 							done(err);
@@ -80,9 +80,10 @@ router.get('/', function(req, res, next) {
 							error: {}
 						});
 					} else {
-						res.render('index', {"data": data});
+						res.end(JSON.stringify(data));
+						//res.render('index', {"data": data});
 					}
-		        })*/
+		        })
 		     });
 		}
 	})
