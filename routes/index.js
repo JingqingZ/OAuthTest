@@ -13,7 +13,7 @@ function getWeibo(access_token, uid, since_id, max_id, count, callback){
 			if (err) {
 				callback(err, null);
 			}else{
-				callback(null, res);
+				callback(null, data);
 			}
 		}))
 	}).on('error', function(err) {
