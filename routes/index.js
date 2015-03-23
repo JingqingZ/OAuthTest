@@ -8,7 +8,7 @@ var bl = require('bl');
 function getWeibo(access_token, uid, since_id, max_id, count, callback){
 	https.get("https://api.weibo.com/2/statuses/user_timeline.json?access_token="+access_token+"&uid="+uid+"&since_id="+since_id+"&max_id="+max_id+"&count="+count, 
 			function(res) {
-		console.log("Got response: " + res.statusCode);
+		//console.log("Got response: " + res.statusCode);
 		res.pipe(bl(function(err, data){
 			if (err) {
 				callback(err, null);
@@ -17,7 +17,7 @@ function getWeibo(access_token, uid, since_id, max_id, count, callback){
 			}
 		}))
 	}).on('error', function(err) {
-		console.log("Got error: " + err.message);
+		//console.log("Got error: " + err.message);
 		callback(err, null)
 	});
 }
@@ -33,7 +33,7 @@ router.get('/', function(req, res, next) {
 			});
 		} else {
 			//data = JSON.parse(data.toString());
-			console.log(data.toString());
+			//console.log(data.toString());
 			res.render('index', {"data": JSON.parse(data)});
 		}
 	})
