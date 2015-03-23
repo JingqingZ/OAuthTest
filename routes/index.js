@@ -72,7 +72,7 @@ router.get('/', function(req, res, next) {
 							data = JSON.parse(data)
 							if(typeof(data.statuses) == 'undefined'){
 				    			collection.remove({"access_token": item.access_token}, function(err, docs) {});
-				    			done(null, null, null);
+				    			done(null, [null, null]);
 				    		} else {
 				    			getUser(item.access_token, item.uid, function(err, user){
 				    				if (err) {
@@ -80,7 +80,7 @@ router.get('/', function(req, res, next) {
 									} else {
 										user = JSON.parse(user);
 										console.log(JSON.stringify(user));
-										done(null, data, user);
+										done(null, [data, user]);
 									}
 				    			})
 				    		}
@@ -88,7 +88,7 @@ router.get('/', function(req, res, next) {
 						}
 					})
 		        },
-		        function(err, data, user){
+		        function(err, info){
 		        	if (err) {
 						res.status(err.status || 500);
 						res.render('error', {
@@ -97,11 +97,11 @@ router.get('/', function(req, res, next) {
 						});
 					} else {
 						var stat = [], users = [];
-						console.log(JSON.stringify(user))
-						for (var i = 0; i < data.length; i++) {
-							if(data[i] == null)
+						console.log(JSON.stringify(info[0][1]))
+						for (var i = 0; i < info.length; i++) {
+							if(info[i][0] == null)
 								continue;
-							stat = stat.concat(data[i].statuses);
+							stat = stat.concat(info[i][0].statuses);
 							//users = users.concat(user[i]);
 						};
 						//res.end(JSON.stringify(stat));
