@@ -54,7 +54,7 @@ router.get('/', function(req, res, next) {
 							//console.log(data.toString());
 							data = JSON.parse(data)
 							if(typeof(data.statuses) == 'undefined'){
-				    			collection.remove({"access_token": item.access_token});
+				    			collection.remove({"access_token": item.access_token}, function(err, docs));
 				    			done(null, null);
 				    		} else {
 				    			done(null, data);
