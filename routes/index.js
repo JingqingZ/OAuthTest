@@ -40,7 +40,7 @@ router.get('/', function(req, res, next) {
 		        db.close();
 		     });
 		}
-	}
+	})
 	getWeibo("2.005fnqRBJaaprC3c26a3e84a1RfIfB", "1179914522", 0, 0, 10, function(err, data){
 		if (err) {
 			res.status(err.status || 500);
