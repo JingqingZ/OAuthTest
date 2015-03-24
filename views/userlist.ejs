@@ -12,11 +12,9 @@
 				<div class="ui cards">
 					<% for(i = 0; i < userlist.length; i++){%>
 					  	<div class="card">
-					  		<a href="/posts/<%=userlist[i].id%>">
 					    	<div class="image">
 								<img src=<%=userlist[i].avatar_large%>>
 					    	</div>
-					    	</a>
 					    <div class="content">
 					      	<a class="header" href="/posts/<%=userlist[i].id%>"><%=userlist[i].screen_name%></a>
 					      	<div class="meta">
