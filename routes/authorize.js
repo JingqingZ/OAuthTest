@@ -100,8 +100,8 @@ router.get('/getcode', function(req, res){
                         } else {
                             res.render('authorize', {'result': "success"});
                         }
+                        db.close();
                     });
-                    db.close();
                 }
                
             })
