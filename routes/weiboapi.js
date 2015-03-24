@@ -21,7 +21,7 @@ exports.getWeibo = function (access_token, uid, since_id, max_id, count, callbac
 exports.getUser = function(access_token, uid, callback){
 	https.get("https://api.weibo.com/2/users/show.json?access_token="+access_token+"&uid="+uid, 
 			function(res) {
-		console.log("Got user response: " + res.statusCode);
+		//console.log("Got user response: " + res.statusCode);
 		res.pipe(bl(function(err, data){
 			if (err) {
 				callback(err, null);

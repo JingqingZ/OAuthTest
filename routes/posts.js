@@ -11,7 +11,7 @@ router.get('/', function(req, res) {
     res.redirect("/")
 })
 
-router.get('/^[0-9]+$', function(req, res) {
+router.get('^/[0-9]+$', function(req, res) {
     res.end("heer!")
 })
 
