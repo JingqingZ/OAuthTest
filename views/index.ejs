@@ -16,7 +16,7 @@
 					<% for(i = 0; i < data.length; i++){%>
 						<div class="event">
 					      	<div class="label">
-					        	<a href="<%= data[i].user.url%>" target="_blank">
+					        	<a href="/posts/<%=data[i].user.id%>">
 					        		<img src=<%= data[i].user.profile_image_url%>>
 					        	</a>
 					      	</div>
@@ -25,7 +25,7 @@
 					              	<%= data[i].created_at%>
 					          	</div>
 					          	<div class="summary">
-					            	<a href="<%= data[i].user.url%>" target="_blank"><%= data[i].user.screen_name%></a>发布微博
+					            	<a href="/posts/<%=data[i].user.id%>" ><%= data[i].user.screen_name%></a>发布微博
 					          	</div>
 					          	<div class="extra text">
 					              	<%= data[i].text%>
@@ -49,13 +49,13 @@
 		          	<% for(i = 0; i < users.length; i++){%>
 						<div class="event">
 					      	<div class="label">
-					        	<a href="<%= users[i].url%>" target="_blank">
+					        	<a href="/posts/<%=data[i].user.id%>">
 					        		<img src=<%= users[i].profile_image_url%>>
 					        	</a>
 					      	</div>
 					      	<div class="content">
 					          	<div class="summary">
-					            	<a href="<%= users[i].url%>" target="_blank"><%= users[i].screen_name%></a>
+					            	<a href="/posts/<%=data[i].user.id%>"><%= users[i].screen_name%></a>
 					          	</div>
 					      </div>
 					  	</div>
