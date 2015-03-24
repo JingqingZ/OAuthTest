@@ -1,8 +1,10 @@
 <html>
 	<head>
+		<title>错误</title>
 		<% include head_link%>
 	</head>
 	<body>
+		<% include navbar%>
 		<h1><%= message%></h1>
 		<h2><%= error.status%></h2>
 		<pre><%= error.stack%></pre>

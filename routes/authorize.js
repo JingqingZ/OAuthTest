@@ -72,16 +72,16 @@ router.get('/getcode', function(req, res){
 		} else {
 			getAccessToken(code, function(access){
 		        if(access == null) {
-                   //alert("【错误】授权失败！")
-		        	res.render('authorize', {'result': "error"});
+                    //alert("【错误】授权失败！")
+		            res.render('authorize', {'result': "error"});
 		        } else {
 		            console.log(JSON.stringify(access));
 			        var collection = db.collection('users');
                     collection.remove({"uid": access.uid}, function(err, docs) {
-                        if(err) console.log(err.message);
+                        if(err) console.log("Authorize Error! [Remove] "+err.message);
                     });
 			        collection.insert(access, function(err, docs) {
-                        if(err) console.log(err.message);
+                        if(err) console.log("Authorize Error! [Insert] "+err.message);
                     });
 			        //alert("授权成功！")
                     res.render('authorize', {'result': "success"});
