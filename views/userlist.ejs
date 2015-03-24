@@ -2,6 +2,11 @@
 	<head>
 		<title>用户列表</title>
 		<% include head_link%>
+		<script>
+			$('.special.cards .image').dimmer({
+			  	on: 'hover'
+			});
+		</script>
 	</head>
 	<body>
 		<% include navbar%>
@@ -9,10 +14,17 @@
 			<div class="one wide column">
 			</div>
 			<div class="fourteen wide column">
-				<div class="ui link cards">
+				<div class="ui special link cards">
 					<% for(i = 0; i < userlist.length; i++){%>
 		  			<div class="card">
-		  				<div class="image">
+		  				<div class="dimmable image">
+						    <div class="ui inverted dimmer">
+						        <div class="content">
+						          	<div class="center">
+						            	<div class="ui inverted button"><a href="/user/"+<%=userlist[i].id%>>More</a></div>
+						          	</div>
+						        </div>
+						    </div>
 				          	<img src=<%=userlist[i].avatar_large%>>
 				      	</div>
 				      	<div class="content">
