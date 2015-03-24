@@ -63,21 +63,16 @@ router.get('/', function(req, res, next) {
 router.get('/getcode', function(req, res){
 	var geturl = require('url').parse(req.url, true)
 	var code = geturl.query.code.toString()
-	MongoClient.connect('mongodb://127.0.0.1:27017/weibodb', function(err, db) {
-	   if(err) {
-	        res.status(err.status || 500);
-            res.render('error', {
-                message: err.message,
-                error: {}
-            });
-		} else {
-			getAccessToken(code, function(access){
-		        if(access == null) {
-                    //alert("【错误】授权失败！")
-		            res.render('authorize', {'result': "error", 'info': '无法获得授权码！'});
-		        } else {
-		            console.log(JSON.stringify(access));
-			        var collection = db.collection('users');
+	getAccessToken(code, function(access){
+        if(access == null) {
+            res.render('authorize', {'result': "error", 'info': '无法获得授权码！'});
+        } else {
+            console.log(JSON.stringify(access));
+            MongoClient.connect('mongodb://127.0.0.1:27017/weibodb', function(err, db) {
+                if(err) {
+                    res.render('authorize', {'result': "error", 'info': '数据库链接失败！'});
+                } else {
+                    var collection = db.collection('users');
                     async.series({
                         remove: function(done){
                             collection.remove({"uid": access.uid}, function(err, docs) {
@@ -106,11 +101,12 @@ router.get('/getcode', function(req, res){
                             res.render('authorize', {'result': "success"});
                         }
                     });
-		      }
-            });
-	    }
-        db.close();
-	})
+                    db.close();
+                }
+               
+            })
+        }
+    });
 })
 
 router.get('/cancel', function(req, res, next) {
