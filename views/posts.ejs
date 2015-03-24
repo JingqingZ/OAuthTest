@@ -37,7 +37,6 @@
 					 	<h2 class="ui header">
 					    	<a href="<%= user.url%>" target="_blank"><%= user.screen_name%></a>的微博
 						</h2>
-						<p><%= user.url%></p>
 						<% for(i = 0; i < data.length; i++){%>
 							<div class="event">
 						      	<div class="label">
@@ -68,10 +67,10 @@
 						    <div class="content">
 						      	<a href="<%= user.url%>" target="_blank" ><%= user.screen_name%></a>
 						      	<div class="meta">
-						        	<span class="date"><%= user.status.created_at%></span>
+						        	<span class="date"><%= user.created_at%></span>
 						      	</div>
 						      	<div class="description">
-						        	<%= user.status.text%>
+						        	<%= user.description%>
 						      	</div>
 						    </div>
 						    <div class="extra content">
