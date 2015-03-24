@@ -12,7 +12,17 @@ router.get('/', function(req, res) {
 })
 
 router.get('^/[0-9]+$', function(req, res) {
-    res.end("heer!")
+	var geturl = require('url').parse(req.url, true);
+    MongoClient.connect('mongodb://127.0.0.1:27017/weibodb', function(err, db) {
+		if (err) {
+			res.render("posts", {"err": "database"});
+		} else {
+			/*collection.find({"uid":}).toArray(function(err, results) {
+
+			});*/
+    		res.end(geturl);
+		}
+	});
 })
 
 module.exports = router;
