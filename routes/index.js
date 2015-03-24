@@ -74,6 +74,18 @@ router.get('/', function(req, res, next) {
 						//res.end(JSON.stringify(stat));
 						var date = new Date(stat[0].created_at);
 						console.log(Date.UTC(date.getFullYear(),date.getMonth(),date.getDate(),date.getHours(),date.getMinutes(),date.getSeconds()));
+						stat.sort(function(x, y){
+							var datex = new Date(x.created_at);
+							var datey = new Date(y.created_at);
+							datex = double(Date.UTC(datex.getFullYear(),datex.getMonth(),datex.getDatex(),datex.getHours(),datex.getMinutes(),datex.getSeconds()));
+							datey = double(Date.UTC(datey.getFullYear(),datey.getMonth(),datey.getdatey(),datey.getHours(),datey.getMinutes(),datey.getSeconds()));
+							if(datex > datey) {
+								return -1;
+							}
+							else {
+								return 1;
+							}
+						})
 						res.render('index', {"data": stat, "users": users});
 					}
 		        	// Let's close the db 
