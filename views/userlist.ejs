@@ -5,21 +5,23 @@
 	</head>
 	<body>
 		<% include navbar%>
-		<div class="ui grid">
+		<div class="ui items">
 			<% for(i = 0; i < userlist.length; i++){%>
-				<div class="event">
-					      	<div class="label">
-					        	<a href="<%= userlist[i].url%>" target="_blank">
-					        		<img src=<%= userlist[i].profile_image_url%>>
-					        	</a>
-					      	</div>
-					      	<div class="content">
-					          	<div class="summary">
-					            	<a href="<%= userlist[i].url%>" target="_blank"><%= userlist[i].screen_name%></a>
-					          	</div>
-					      </div>
-					  	</div>
-			<%	} %>
-		</div>
+		  	<div class="item">
+		      	<div class="image">
+		          	<img src=<%=userlist[i].avatar_large%>>
+		      	</div>
+		      	<div class="content">
+		          	<div class="name"><%=userlist[i].screen_name%></div>
+		          	<p class="description">
+						<%= userlist[i].status.text%>
+		          	</p>
+		          	<div class="extra">
+		              	<%= userlist[i].followers_count%>个粉丝
+		          	</div>
+		      	</div>
+		  	</div>
+		  	<%	} %>
+		<div>
 	</body>
 </html>
