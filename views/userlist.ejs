@@ -5,10 +5,21 @@
 	</head>
 	<body>
 		<% include navbar%>
-		<ul>
+		<div class="ui grid">
 			<% for(i = 0; i < userlist.length; i++){%>
-				<li><a><%= userlist[i].code %></a></li>
+				<div class="event">
+					      	<div class="label">
+					        	<a href="<%= userlist[i].url%>" target="_blank">
+					        		<img src=<%= userlist[i].profile_image_url%>>
+					        	</a>
+					      	</div>
+					      	<div class="content">
+					          	<div class="summary">
+					            	<a href="<%= userlist[i].url%>" target="_blank"><%= userlist[i].screen_name%></a>
+					          	</div>
+					      </div>
+					  	</div>
 			<%	} %>
-		</ul>
+		</div>
 	</body>
 </html>
