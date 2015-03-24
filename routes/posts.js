@@ -46,8 +46,8 @@ router.get('^/[0-9]+$', function(req, res) {
 						}
 					})
 				}
-			});
-			db.close();
+				db.close();
+			});		
 		}
 	});
 })
