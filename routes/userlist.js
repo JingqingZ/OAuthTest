@@ -34,8 +34,11 @@ router.get('/', function(req, res) {
                             done(err);
                         } else {
                             user = JSON.parse(user);
-                            //console.log(JSON.stringify(user));
-                            done(null, user);
+                            if(typeof(user.id) == 'undefined'){
+                                done(null, null)
+                            } else {
+                                done(null, user);
+                            }
                         }
                     })
                 },
