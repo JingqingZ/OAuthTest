@@ -65,8 +65,4 @@ router.get('/', function(req, res) {
     })
 });
 
-router.get('/^[0-9]+$', function(req, res) {
-    res.end("heer!")
-})
-
 module.exports = router;

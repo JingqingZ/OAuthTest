@@ -9,6 +9,7 @@ var bodyParser = require('body-parser');
 //var db = monk('localhost:27017/userdb');
 
 var index = require('./routes/index');
+var posts = require('./routes/posts');
 var userlist = require('./routes/userlist');
 var authorize = require('./routes/authorize');
 //var userlist = require('./routes/userlist')
@@ -34,7 +35,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 });*/
 
 app.use('/', index);
-app.use('/posts', index);
+app.use('/posts', posts);
 app.use('/authorize', authorize)
 app.use('/users', userlist)
 
