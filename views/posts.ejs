@@ -35,12 +35,12 @@
 				<div class="ten wide column">
 					<div class="ui piled feed segment">
 					 	<h2 class="ui header">
-					    	<a href="<%= user.url%>" ><%= user.screen_name%></a>的微博
+					    	<a href="<%= user.url%>" target="_blank"><%= user.screen_name%></a>的微博
 						</h2>
 						<% for(i = 0; i < data.length; i++){%>
 							<div class="event">
 						      	<div class="label">
-						        	<a href="/posts/<%=data[i].user.id%>">
+						        	<a href="<%= user.url%>" target="_blank">
 						        		<img src=<%= data[i].user.profile_image_url%>>
 						        	</a>
 						      	</div>
@@ -49,7 +49,7 @@
 						              	<%= data[i].created_at%>
 						          	</div>
 						          	<div class="summary">
-						            	<a href="/posts/<%=data[i].user.id%>" ><%= data[i].user.screen_name%></a>发布微博
+						            	<a href="<%= user.url%>" target="_blank" ><%= data[i].user.screen_name%></a>发布微博
 						          	</div>
 						          	<div class="extra text">
 						              	<%= data[i].text%>
@@ -65,7 +65,7 @@
 									<img src=<%=user.avatar_large%>>
 						    	</div>
 						    <div class="content">
-						      	<a href="/posts/<%=data[i].user.id%>" ><%= data[i].user.screen_name%></a>
+						      	<a href="<%= user.url%>" target="_blank" ><%= data[i].user.screen_name%></a>
 						      	<div class="meta">
 						        	<span class="date"><%= user.status.created_at%></span>
 						      	</div>
