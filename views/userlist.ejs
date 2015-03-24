@@ -17,18 +17,13 @@
 			<div class="one wide column">
 			</div>
 			<div class="fourteen wide column">
-				<div class="ui special link cards">
+				<div class="ui link cards">
 					<% for(i = 0; i < userlist.length; i++){%>
 					  	<div class="card">
-					    	<div class="dimmable image">
-						      	<div class="ui dimmer">
-						        	<div class="content">
-						          		<div class="center">
-						            		<div class="ui primary button">More</div>
-						          		</div>
-						        	</div>
-						      	</div>
-						     	<img src=<%=userlist[i].avatar_large%>>
+					    	<div class="image">
+						     	<a href="/user/<%=userlist[i].id%>">
+									<img src=<%=userlist[i].avatar_large%>>
+						     	</a>
 					    	</div>
 					    <div class="content">
 					      	<a class="header" href="/user/<%=userlist[i].id%>"><%=userlist[i].screen_name%></a>
