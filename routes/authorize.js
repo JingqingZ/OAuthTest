@@ -3,6 +3,7 @@ var router = express.Router();
 var MongoClient = require('mongodb').MongoClient
 var format = require('util').format;
 var bl = require('bl')
+var async = require('async');
 var key = '2627706825'
 var secret = '773eb51c7411b179002758188b92da92'
 var reuri = 'zjq.101a.net/authorize/getcode'
@@ -73,19 +74,38 @@ router.get('/getcode', function(req, res){
 			getAccessToken(code, function(access){
 		        if(access == null) {
                     //alert("【错误】授权失败！")
-		            res.render('authorize', {'result': "error"});
+		            res.render('authorize', {'result': "error", 'info': '无法获得授权码！'});
 		        } else {
 		            console.log(JSON.stringify(access));
 			        var collection = db.collection('users');
-                    collection.remove({"uid": access.uid}, function(err, docs) {
-                        if(err) console.log("Authorize Error! [Remove] "+err.message);
+                    async.series({
+                        remove: function(done){
+                            collection.remove({"uid": access.uid}, function(err, docs) {
+                                if(err) {
+                                    console.log("Authorize Error! [Remove] "+err.message);
+                                    done(err, null)
+                                } else {
+                                    done(null, "success")
+                                }
+                            });
+                        },
+                        insert: function(done){
+                            collection.insert(access, function(err, docs) {
+                                if(err) {
+                                    console.log("Authorize Error! [Insert] "+err.message);
+                                    done(err, null)
+                                } else {
+                                    done(null, "success")
+                                }
+                            });
+                        }  
+                    }, function(err, results){
+                        if (err.remove || err.insert) {
+                            res.render('authorize', {'result': "error", 'info': '数据库更新失败！'});
+                        } else {
+                            res.render('authorize', {'result': "success"});
+                        }
                     });
-			        collection.insert(access, function(err, docs) {
-                        if(err) console.log("Authorize Error! [Insert] "+err.message);
-                    });
-			        //alert("授权成功！")
-                    res.render('authorize', {'result': "success"});
-		        }
 		    });
 	    }
         db.close();
