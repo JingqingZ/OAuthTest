@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 var MongoClient = require('mongodb').MongoClient
 var format = require('util').format;
+var async = require('async');
+var weiboapi = require('./weiboapi');
  
 
 /* GET home page. */
