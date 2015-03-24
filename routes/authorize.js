@@ -106,7 +106,8 @@ router.get('/getcode', function(req, res){
                             res.render('authorize', {'result': "success"});
                         }
                     });
-		    });
+		      }
+            });
 	    }
         db.close();
 	})
