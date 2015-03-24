@@ -11,7 +11,7 @@
 			<div class="ten wide column">
 				<div class="ui piled feed segment">
 				 	<h2 class="ui header">
-				    	微博广场
+				    	<a href="<%= user.url%>" ><%= user.screen_name%></a>的微博
 					</h2>
 					<% for(i = 0; i < data.length; i++){%>
 						<div class="event">
@@ -36,31 +36,29 @@
 				</div>
 			</div>
 			<div class="four wide column">
-				<div class="ui feed segment">
-		          	<h4 class="ui red header">Welcome</h4>
-		          	<div class="event">
-		              	<div class="content">
-		                  	<div class="summary">
-		                      欢迎来到OAuthTest！这是一个测试新浪微博OAuth2.0授权功能的应用网站，您可以点击右上角的“授权”按钮，授权本网站获取您的微博信息。感谢使用！
-		                  	</div>
-		              	</div>
-		            </div>
-		            <h4 class="ui red header">用户列表</h4>
-		          	<% for(i = 0; i < users.length; i++){%>
-						<div class="event">
-					      	<div class="label">
-					        	<a href="/posts/<%=data[i].user.id%>">
-					        		<img src=<%= users[i].profile_image_url%>>
-					        	</a>
+		          	<div class="ui card">
+					    	<div class="image">
+								<img src=<%=user.avatar_large%>>
+					    	</div>
+					    <div class="content">
+					      	<a href="/posts/<%=data[i].user.id%>" ><%= data[i].user.screen_name%></a>
+					      	<div class="meta">
+					        	<span class="date"><%= user.status.created_at%></span>
 					      	</div>
-					      	<div class="content">
-					          	<div class="summary">
-					            	<a href="/posts/<%=data[i].user.id%>"><%= users[i].screen_name%></a>
-					          	</div>
-					      </div>
-					  	</div>
-					<%	} %>
-		        </div>
+					      	<div class="description">
+					        	<%= user.status.text%>
+					      	</div>
+					    </div>
+					    <div class="extra content">
+					    	<span class="right floated">
+					        	<%= user.location%>
+					      	</span>
+						    <span>
+						        <i class="user icon"></i>
+						        <%= user.followers_count%>个粉丝
+						    </span>
+					    </div>
+					</div>
 			</div>
 		</div>
 	</body>

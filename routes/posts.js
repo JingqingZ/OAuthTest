@@ -17,10 +17,36 @@ router.get('^/[0-9]+$', function(req, res) {
 		if (err) {
 			res.render("posts", {"err": "database"});
 		} else {
-			/*collection.find({"uid":}).toArray(function(err, results) {
-
-			});*/
-    		res.end(geturl);
+			collection.find({"uid":}).toArray(function(err, results) {
+				if(results.length <= 0){
+					res.render("posts", {"err": "nosuchuser"});
+				} else {
+					weiboapi.getWeibo(results[0].access_token, results[0].uid, 0, 0, 20, function(err, data){
+						if(err) {
+							res.render("posts", {"err": "weibonotreach"});
+						} else {
+							data = JSON.parse(data);
+							if(typeof(data.statuses) == 'undefined'){
+				    			res.render("posts", {"err": "weibonotreach"});
+				    		} else {
+				    			weiboapi.getUser(results[0].access_token, results[0].uid, function(err, user){
+				    				if (err) {
+										res.render("posts", {"err": "weibonotreach"});
+									} else {
+										user = JSON.parse(user);
+										if(typeof(user.id) == 'undefined'){
+											res.render("posts", {"err": "weibonotreach"});
+										} else {
+											res.render("posts", {"err": "success", "data": data.statuses, "user": user});
+										}
+									}
+				    			})
+				    		}
+						}
+					})
+				}
+			});
+			db.close();
 		}
 	});
 })
