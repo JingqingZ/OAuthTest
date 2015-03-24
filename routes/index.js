@@ -72,13 +72,13 @@ router.get('/', function(req, res, next) {
 							users = users.concat(info[i][1]);
 						};
 						//res.end(JSON.stringify(stat));
-						var date = new Date(stat[0].created_at);
-						console.log(Date.UTC(date.getFullYear(),date.getMonth(),date.getDate(),date.getHours(),date.getMinutes(),date.getSeconds()));
+						//var date = new Date(stat[0].created_at);
+						//console.log(Date.UTC(date.getFullYear(),date.getMonth(),date.getDate(),date.getHours(),date.getMinutes(),date.getSeconds()));
 						stat.sort(function(x, y){
 							var datex = new Date(x.created_at);
 							var datey = new Date(y.created_at);
-							datex = double(Date.UTC(datex.getFullYear(),datex.getMonth(),datex.getDatex(),datex.getHours(),datex.getMinutes(),datex.getSeconds()));
-							datey = double(Date.UTC(datey.getFullYear(),datey.getMonth(),datey.getdatey(),datey.getHours(),datey.getMinutes(),datey.getSeconds()));
+							datex = double(Date.UTC(datex.getFullYear(),datex.getMonth(),datex.getDate(),datex.getHours(),datex.getMinutes(),datex.getSeconds()));
+							datey = double(Date.UTC(datey.getFullYear(),datey.getMonth(),datey.getDate(),datey.getHours(),datey.getMinutes(),datey.getSeconds()));
 							if(datex > datey) {
 								return -1;
 							}
