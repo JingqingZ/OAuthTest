@@ -19,7 +19,7 @@ router.get('^/[0-9]+$', function(req, res) {
 		} else {
 			var collection = db.collection("users");
 			collection.find({"uid":geturl}).toArray(function(err, results) {
-				if(results.length <= 0){
+				if(results == null || results.length <= 0){
 					res.render("posts", {"err": "nosuchuser"});
 				} else {
 					weiboapi.getWeibo(results[0].access_token, results[0].uid, 0, 0, 20, function(err, data){

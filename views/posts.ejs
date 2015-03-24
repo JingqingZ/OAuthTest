@@ -5,62 +5,87 @@
 	</head>
 	<body>
 		<% include navbar%>
-		<div class="ui grid">
+		<% if (err != "success") {%>
+			<div class="ui grid">
 			<div class="one wide column">
 			</div>
-			<div class="ten wide column">
-				<div class="ui piled feed segment">
-				 	<h2 class="ui header">
-				    	<a href="<%= user.url%>" ><%= user.screen_name%></a>的微博
-					</h2>
-					<% for(i = 0; i < data.length; i++){%>
-						<div class="event">
-					      	<div class="label">
-					        	<a href="/posts/<%=data[i].user.id%>">
-					        		<img src=<%= data[i].user.profile_image_url%>>
-					        	</a>
-					      	</div>
-					      	<div class="content">
-					         	<div class="date">
-					              	<%= data[i].created_at%>
-					          	</div>
-					          	<div class="summary">
-					            	<a href="/posts/<%=data[i].user.id%>" ><%= data[i].user.screen_name%></a>发布微博
-					          	</div>
-					          	<div class="extra text">
-					              	<%= data[i].text%>
-					          	</div>
-					      </div>
-					  	</div>
-					<%	} %>
+			<div class="fourteen wide column">
+				<div class="ui error message">
+					<div class="header">
+					      	错误！
+					</div>
+					<ul class="list">
+						<% if (err == "database") {%>
+					    	<li>链接数据库错误！</li>
+					    <% } else if (err == "nosuchuser") {%>
+					    	<li>没有找到该用户！</li>
+					    <% } else if (err == "weibonotreach") {%>
+					    	<li>无法获得微博数据！</li>
+					    <% } else {%>
+					    	<li>未知错误</li>
+					    <% } %>
+					</ul>
 				</div>
 			</div>
-			<div class="four wide column">
-		          	<div class="ui card">
-					    	<div class="image">
-								<img src=<%=user.avatar_large%>>
-					    	</div>
-					    <div class="content">
-					      	<a href="/posts/<%=data[i].user.id%>" ><%= data[i].user.screen_name%></a>
-					      	<div class="meta">
-					        	<span class="date"><%= user.status.created_at%></span>
-					      	</div>
-					      	<div class="description">
-					        	<%= user.status.text%>
-					      	</div>
-					    </div>
-					    <div class="extra content">
-					    	<span class="right floated">
-					        	<%= user.location%>
-					      	</span>
-						    <span>
-						        <i class="user icon"></i>
-						        <%= user.followers_count%>个粉丝
-						    </span>
-					    </div>
-					</div>
-			</div>
 		</div>
+		<% } else { %>
+			<div class="ui grid">
+				<div class="one wide column">
+				</div>
+				<div class="ten wide column">
+					<div class="ui piled feed segment">
+					 	<h2 class="ui header">
+					    	<a href="<%= user.url%>" ><%= user.screen_name%></a>的微博
+						</h2>
+						<% for(i = 0; i < data.length; i++){%>
+							<div class="event">
+						      	<div class="label">
+						        	<a href="/posts/<%=data[i].user.id%>">
+						        		<img src=<%= data[i].user.profile_image_url%>>
+						        	</a>
+						      	</div>
+						      	<div class="content">
+						         	<div class="date">
+						              	<%= data[i].created_at%>
+						          	</div>
+						          	<div class="summary">
+						            	<a href="/posts/<%=data[i].user.id%>" ><%= data[i].user.screen_name%></a>发布微博
+						          	</div>
+						          	<div class="extra text">
+						              	<%= data[i].text%>
+						          	</div>
+						      </div>
+						  	</div>
+						<%	} %>
+					</div>
+				</div>
+				<div class="four wide column">
+			          	<div class="ui card">
+						    	<div class="image">
+									<img src=<%=user.avatar_large%>>
+						    	</div>
+						    <div class="content">
+						      	<a href="/posts/<%=data[i].user.id%>" ><%= data[i].user.screen_name%></a>
+						      	<div class="meta">
+						        	<span class="date"><%= user.status.created_at%></span>
+						      	</div>
+						      	<div class="description">
+						        	<%= user.status.text%>
+						      	</div>
+						    </div>
+						    <div class="extra content">
+						    	<span class="right floated">
+						        	<%= user.location%>
+						      	</span>
+							    <span>
+							        <i class="user icon"></i>
+							        <%= user.followers_count%>个粉丝
+							    </span>
+						    </div>
+						</div>
+				</div>
+			</div>
+		<% } %>
 	</body>
 	<footer>
 		<script>
