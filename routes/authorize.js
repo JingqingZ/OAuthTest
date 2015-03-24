@@ -100,7 +100,7 @@ router.get('/getcode', function(req, res){
                             });
                         }  
                     }, function(err, results){
-                        if (err.remove || err.insert) {
+                        if (err) {
                             res.render('authorize', {'result': "error", 'info': '数据库更新失败！'});
                         } else {
                             res.render('authorize', {'result': "success"});
