@@ -72,6 +72,8 @@ router.get('/', function(req, res, next) {
 							users = users.concat(info[i][1]);
 						};
 						//res.end(JSON.stringify(stat));
+						var date = new Date(stat[0].created_at);
+						console.log(date);
 						res.render('index', {"data": stat, "users": users});
 					}
 		        	// Let's close the db 
