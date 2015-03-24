@@ -78,7 +78,9 @@ router.get('/getcode', function(req, res){
 		            console.log(JSON.stringify(access));
 			        var collection = db.collection('users');
                     collection.remove({"uid": access.uid}, function(err, docs) {});
-			        collection.insert(access, function(err, docs) {});
+			        collection.insert(access, function(err, docs) {
+                        if(err) console.log(err.message);
+                    });
 			        //alert("授权成功！")
                     res.render('authorize', {'result': "success"});
 		        }
