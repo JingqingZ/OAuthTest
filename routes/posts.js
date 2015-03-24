@@ -41,7 +41,7 @@ router.get('^/[0-9]+$', function(req, res) {
 										if(typeof(user.id) == 'undefined'){
 											res.render("posts", {"err": "weibonotreach"});
 										} else {
-											console.log(JSON.stringify(user));
+											//console.log(JSON.stringify(user));
 											res.render("posts", {"err": "success", "data": data.statuses, "user": user});
 										}
 									}
