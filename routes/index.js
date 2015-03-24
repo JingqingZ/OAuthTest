@@ -77,8 +77,8 @@ router.get('/', function(req, res, next) {
 						stat.sort(function(x, y){
 							var datex = new Date(x.created_at);
 							var datey = new Date(y.created_at);
-							datex = Double.valueOf(Date.UTC(datex.getFullYear(),datex.getMonth(),datex.getDate(),datex.getHours(),datex.getMinutes(),datex.getSeconds()));
-							datey = Double.valueOf(Date.UTC(datey.getFullYear(),datey.getMonth(),datey.getDate(),datey.getHours(),datey.getMinutes(),datey.getSeconds()));
+							datex = Date.UTC(datex.getFullYear(),datex.getMonth(),datex.getDate(),datex.getHours(),datex.getMinutes(),datex.getSeconds());
+							datey = Date.UTC(datey.getFullYear(),datey.getMonth(),datey.getDate(),datey.getHours(),datey.getMinutes(),datey.getSeconds());
 							if(datex > datey) {
 								return -1;
 							}
