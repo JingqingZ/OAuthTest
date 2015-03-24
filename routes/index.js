@@ -36,7 +36,11 @@ router.get('/', function(req, res, next) {
 						} else {
 							//data = JSON.parse(data.toString());
 							//console.log(data.toString());
-							data = JSON.parse(data)
+							try {
+								data = JSON.parse(data)
+							} catch(err) {
+								done(err);
+							}
 							if(typeof(data.statuses) == 'undefined'){
 				    			collection.remove({"access_token": item.access_token}, function(err, docs) {});
 				    			done(null, [null, null]);
@@ -45,7 +49,11 @@ router.get('/', function(req, res, next) {
 				    				if (err) {
 										done(err);
 									} else {
-										user = JSON.parse(user);
+										try {
+											user = JSON.parse(user);
+										} catch(err) {
+											done(err);
+										}
 										//console.log(JSON.stringify(user));
 										done(null, [data, user]);
 									}

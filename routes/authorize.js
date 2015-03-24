@@ -40,7 +40,11 @@ function getAccessToken(code, callback) {
     		}
     		else {
     			data = data.toString();
-    			data = JSON.parse(data);
+    			try {
+                    data = JSON.parse(data)
+                } catch(err) {
+                    callback(null);
+                }
                 if (typeof(data.access_token) == 'undefined') {
                     console.log('Error! Get Access Token error!');
                     callback(null);

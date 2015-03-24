@@ -33,7 +33,11 @@ router.get('/', function(req, res) {
                         if (err) {
                             done(err);
                         } else {
-                            user = JSON.parse(user);
+                            try {
+                                user = JSON.parse(user)
+                            } catch(err) {
+                                done(err);
+                            }
                             if(typeof(user.id) == 'undefined'){
                                 done(null, null)
                             } else {

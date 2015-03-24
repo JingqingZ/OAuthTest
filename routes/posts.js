@@ -29,7 +29,12 @@ router.get('^/[0-9]+$', function(req, res) {
 						if(err) {
 							res.render("posts", {"err": "weibonotreach"});
 						} else {
-							data = JSON.parse(data);
+							try {
+								data = JSON.parse(data)
+							} catch(err) {
+								res.render("posts", {"err": "weibonotreach"});
+								return;
+							}
 							if(typeof(data.statuses) == 'undefined'){
 				    			res.render("posts", {"err": "weibonotreach"});
 				    		} else {
@@ -37,7 +42,12 @@ router.get('^/[0-9]+$', function(req, res) {
 				    				if (err) {
 										res.render("posts", {"err": "weibonotreach"});
 									} else {
-										user = JSON.parse(user);
+										try {
+											user = JSON.parse(user)
+										} catch(err) {
+											res.render("posts", {"err": "weibonotreach"});
+											return;
+										}
 										if(typeof(user.id) == 'undefined'){
 											res.render("posts", {"err": "weibonotreach"});
 										} else {
