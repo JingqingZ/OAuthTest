@@ -77,7 +77,9 @@ router.get('/getcode', function(req, res){
 		        } else {
 		            console.log(JSON.stringify(access));
 			        var collection = db.collection('users');
-                    collection.remove({"uid": access.uid}, function(err, docs) {});
+                    collection.remove({"uid": access.uid}, function(err, docs) {
+                        if(err) console.log(err.message);
+                    });
 			        collection.insert(access, function(err, docs) {
                         if(err) console.log(err.message);
                     });
