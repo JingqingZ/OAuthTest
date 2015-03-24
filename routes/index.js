@@ -5,40 +5,7 @@ var format = require('util').format;
 var https = require('https');
 var bl = require('bl');
 var async = require('async');
-
-function getWeibo(access_token, uid, since_id, max_id, count, callback){
-	https.get("https://api.weibo.com/2/statuses/user_timeline.json?access_token="+access_token+"&uid="+uid+"&since_id="+since_id+"&max_id="+max_id+"&count="+count, 
-			function(res) {
-		//console.log("Got response: " + res.statusCode);
-		res.pipe(bl(function(err, data){
-			if (err) {
-				callback(err, null);
-			}else{
-				callback(null, data);
-			}
-		}))
-	}).on('error', function(err) {
-		//console.log("Got error: " + err.message);
-		callback(err, null)
-	});
-}
-
-function getUser(access_token, uid, callback){
-	https.get("https://api.weibo.com/2/users/show.json?access_token="+access_token+"&uid="+uid, 
-			function(res) {
-		console.log("Got user response: " + res.statusCode);
-		res.pipe(bl(function(err, data){
-			if (err) {
-				callback(err, null);
-			}else{
-				callback(null, data);
-			}
-		}))
-	}).on('error', function(err) {
-		//console.log("Got error: " + err.message);
-		callback(err, null)
-	});
-}
+var weiboapi = require('./weiboapi');
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -63,7 +30,7 @@ router.get('/', function(req, res, next) {
 		    	});
 		        //res.end(JSON.stringify(allusers));
 		        async.map(allusers, function(item, done){
-		        	getWeibo(item.access_token, item.uid, 0, 0, 3, function(err, data){
+		        	weiboapi.getWeibo(item.access_token, item.uid, 0, 0, 3, function(err, data){
 						if (err) {
 							done(err);
 						} else {
@@ -74,7 +41,7 @@ router.get('/', function(req, res, next) {
 				    			collection.remove({"access_token": item.access_token}, function(err, docs) {});
 				    			done(null, [null, null]);
 				    		} else {
-				    			getUser(item.access_token, item.uid, function(err, user){
+				    			weiboapi.getUser(item.access_token, item.uid, function(err, user){
 				    				if (err) {
 										done(err);
 									} else {
