@@ -30,7 +30,7 @@ router.get('/', function(req, res, next) {
 		    	});
 		        //res.end(JSON.stringify(allusers));
 		        async.map(allusers, function(item, done){
-		        	weiboapi.getWeibo(item.access_token, item.uid, 0, 0, 3, function(err, data){
+		        	weiboapi.getWeibo(item.access_token, item.uid, 0, 0, 15, function(err, data){
 						if (err) {
 							done(err);
 						} else {
@@ -73,7 +73,7 @@ router.get('/', function(req, res, next) {
 						};
 						//res.end(JSON.stringify(stat));
 						var date = new Date(stat[0].created_at);
-						console.log(date);
+						console.log(Date.UTC(date.getFullYear(),date.getMonth(),date.getDate(),date.getHours(),date.getMinutes(),date.getSeconds()));
 						res.render('index', {"data": stat, "users": users});
 					}
 		        	// Let's close the db 

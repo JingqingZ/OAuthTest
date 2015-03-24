@@ -13,7 +13,7 @@
 				 	<h2 class="ui header">
 				    	微博广场
 					</h2>
-					<% for(i = 0; i < data.length; i++){%>
+					<% for(i = 0; i < data.length && i < 20; i++){%>
 						<div class="event">
 					      	<div class="label">
 					        	<a href="/posts/<%=data[i].user.id%>">
