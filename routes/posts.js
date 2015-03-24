@@ -17,7 +17,7 @@ router.get('^/[0-9]+$', function(req, res) {
 		if (err) {
 			res.render("posts", {"err": "database"});
 		} else {
-			collection.find({"uid":}).toArray(function(err, results) {
+			collection.find({"uid":geturl}).toArray(function(err, results) {
 				if(results.length <= 0){
 					res.render("posts", {"err": "nosuchuser"});
 				} else {
