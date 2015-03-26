@@ -25,7 +25,7 @@ router.get('^/[0-9]+$', function(req, res) {
 				} else if(results == null || results.length <= 0){
 					res.render("posts", {"err": "nosuchuser"});
 				} else {
-					weiboapi.getWeibo(results[0].access_token, results[0].uid, 0, 0, 20, function(err, data){
+					weiboapi.getWeibo(results[0].access_token, results[0].uid, 0, 0, 30, function(err, data){
 						if(err) {
 							res.render("posts", {"err": "weibonotreach"});
 						} else {
