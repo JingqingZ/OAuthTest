@@ -111,7 +111,7 @@ router.get('^/[0-9]+/keyword$', function(req, res) {
     	if (err != "success") {
     		res.end({"error": err});
     	} else {
-    		res.end(JSON.stringify({"keyword":keyword}));
+    		res.end(JSON.stringify({"keyword":keyword[0:keyword.length-2]}));
     	}
     })
 })
