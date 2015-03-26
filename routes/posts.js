@@ -12,7 +12,8 @@ router.get('/show', function(req, res) {
 })
 
 router.get('^/[0-9]+/show$', function(req, res) {
-	var geturl = require('url').parse(req.url, true).pathname.replace('/', '');
+	var geturl = require('url').parse(req.url, true).pathname.split('/');
+	geturl = geturl[1];
     MongoClient.connect('mongodb://127.0.0.1:27017/weibodb', function(err, db) {
 		if (err) {
 			res.render("posts", {"err": "database"});
