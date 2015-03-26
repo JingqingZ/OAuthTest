@@ -72,7 +72,7 @@
 						    <div class="description">
 						        <%= user.description%>
 						        <h4 class="ui red header">关键词</h4>
-								<% if(keyword == null) {%>
+								<% if(keyword == null || keyword.length <= 1) {%>
 									<h5 class="ui yellow header">提取关键词失败T^T</h5>
 								<% } else { %>
 									<% for(i = 0; i < (keyword.length-1); i++){%>
