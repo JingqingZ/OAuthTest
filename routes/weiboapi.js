@@ -40,11 +40,11 @@ exports.getKeyword = function(statuses, callback){
 	};
 	text = text.replace("/", "");
 	http.get("http://api.yutao.us/api/keyword/" + text, function(res) {
-		res.pipe(bl(function(err, data){
+		res.pipe(bl(function(err, keyword){
 			if(err){
 				callback(err, null);
 			} else {
-				callback(null, data);
+				callback(null, keyword);
 			}
 		}))
 	}).on('error', function(err){
