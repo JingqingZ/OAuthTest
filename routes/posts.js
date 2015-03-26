@@ -57,7 +57,9 @@ router.get('^/[0-9]+$', function(req, res) {
 												if(err){
 													keyword = null;
 												} else {
+													console.log(kw.length)
 													keyword = kw.split(',');
+													console.log(keyword);
 												}
 												res.render("posts", {"err": "success", "data": data.statuses, "user": user, "keyword": keyword});
 											})
