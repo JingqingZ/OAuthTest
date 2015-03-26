@@ -51,7 +51,7 @@ router.get('^/[0-9]+$', function(req, res) {
 										if(typeof(user.id) == 'undefined'){
 											res.render("posts", {"err": "weibonotreach"});
 										} else {
-											var keyword = null
+											var keyword = []
 											weiboapi.getKeyword(data.statuses, function(err, kw){
 												kw = kw.toString();
 												//console.log(kw);
@@ -59,7 +59,7 @@ router.get('^/[0-9]+$', function(req, res) {
 													keyword = null;
 												} else {
 													//console.log(kw.length)
-													var pos = keyword.indexOf("html", 0);
+													var pos = kw.indexOf("html", 0);
 													console.log(pos);
 													keyword = kw.split(',');
 													//console.log(keyword);
