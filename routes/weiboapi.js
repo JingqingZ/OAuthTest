@@ -38,7 +38,7 @@ exports.getKeyword = function(statuses, callback){
 	for (var i = 0; i < statuses.length; i++) {
 		text += statuses[i].text;
 	};
-	text = text.replaceAll("/", "");
+	text = text.replace(/\//, "");
 	console.log(text);
 	http.get("http://api.yutao.us/api/keyword/" + text, function(res) {
 		res.pipe(bl(function(err, keyword){
