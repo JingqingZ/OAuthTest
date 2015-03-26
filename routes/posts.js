@@ -7,11 +7,11 @@ var weiboapi = require('./weiboapi');
  
 
 /* GET home page. */
-router.get('/', function(req, res) {
+router.get('/show', function(req, res) {
     res.redirect("/")
 })
 
-router.get('^/[0-9]+$', function(req, res) {
+router.get('^/[0-9]+/show$', function(req, res) {
 	var geturl = require('url').parse(req.url, true).pathname.replace('/', '');
     MongoClient.connect('mongodb://127.0.0.1:27017/weibodb', function(err, db) {
 		if (err) {

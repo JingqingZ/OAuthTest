@@ -7,7 +7,7 @@ var weiboapi = require('./weiboapi');
  
 
 /* GET home page. */
-router.get('/', function(req, res) {
+router.get('/show', function(req, res) {
 	MongoClient.connect('mongodb://127.0.0.1:27017/weibodb', function(err, db) {
         if (err) {
             res.status(err.status || 500);
