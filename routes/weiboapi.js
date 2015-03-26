@@ -35,9 +35,10 @@ exports.getUser = function(access_token, uid, callback){
 
 exports.getKeyword = function(statuses, callback){
 	var text = "";
-	for (var i = 0; i < statuses.length; i++) {
+	/*for (var i = 0; i < statuses.length; i++) {
 		text += statuses[i].text;
-	};
+	};*/
+	text = statuses[4].text;
 	text = text.replace(/\//g, "");
 	//console.log(text);
 	http.get("http://api.yutao.us/api/keyword/" + text, function(res) {
