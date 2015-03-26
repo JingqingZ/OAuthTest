@@ -39,7 +39,7 @@ exports.getKeyword = function(statuses, callback){
 		text += statuses[i].text;
 	};
 	//text = statuses[4].text;
-	text = text.replace(/[\/:@>\]\[\.\s#]/g, "");
+	text = text.replace(/[\/:@>/g, "");
 	text = text.replace(/[a-zA-Z0-9]/g, "");
 	console.log(text);
 	var url = "http://api.yutao.us/api/keyword/" + text;
