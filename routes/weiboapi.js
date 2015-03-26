@@ -43,13 +43,13 @@ exports.getKeyword = function(statuses, callback){
 	text = text.replace(/[a-zA-Z0-9]/g, "");
 	//console.log(text);
 	var url = "http://api.yutao.us/api/keyword/" + text;
-	//console.log(url);
+	console.log(url);
 	http.get(url, function(res) {
 		res.pipe(bl(function(err, keyword){
 			if(err){
 				callback(err, null);
 			} else {
-				//console.log("keyword:"+keyword.toString());
+				console.log("keyword:"+keyword.toString());
 				callback(null, keyword);
 			}
 		}))
