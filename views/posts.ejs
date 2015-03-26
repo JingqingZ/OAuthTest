@@ -37,7 +37,7 @@
 					 	<h2 class="ui header">
 					    	<a href="<%= user.url%>"><%= user.screen_name%></a>的微博
 						</h2>
-						<% for(i = 0; i < data.length; i++){%>
+						<% for(i = 0; i < data.length && i < 10; i++){%>
 							<div class="event">
 						      	<div class="label">
 						        	<a href="<%= user.url%>">
@@ -60,29 +60,38 @@
 					</div>
 				</div>
 				<div class="four wide column">
-			          	<div class="ui card">
-						    	<div class="image">
-									<img src=<%=user.avatar_large%>>
-						    	</div>
-						    <div class="content">
-						      	<a href="<%= user.url%>" ><%= user.screen_name%></a>
-						      	<div class="meta">
-						        	<span class="date"><%= user.created_at%></span>
-						      	</div>
-						      	<div class="description">
-						        	<%= user.description%>
-						      	</div>
+			        <div class="ui card">
+						<div class="image">
+							<img src=<%=user.avatar_large%>>
+						</div>
+						<div class="content">
+						    <a href="<%= user.url%>" ><%= user.screen_name%></a>
+						    <div class="meta">
+						        <span class="date"><%= user.created_at%></span>
 						    </div>
-						    <div class="extra content">
-						    	<span class="right floated">
-						        	<%= user.location%>
-						      	</span>
-							    <span>
-							        <i class="user icon"></i>
-							        <%= user.followers_count%>个粉丝
-							    </span>
+						    <div class="description">
+						        <%= user.description%>
 						    </div>
 						</div>
+						<div class="extra content">
+						    <span class="right floated">
+						        <%= user.location%>
+						    </span>
+							<span>
+							    <i class="user icon"></i>
+							    <%= user.followers_count%>个粉丝
+							</span>
+						</div>
+					</div>
+					<div class="ui feed segment">
+						<h4 class="ui red header">关键词</h4>
+							<div class="event">
+						      	<a class="ui blue label">Blue Label</a>
+						      	<a class="ui blue label">Blue Label</a>
+						      	<a class="ui blue label">Blue Label</a>
+						      	<a class="ui blue label">Blue Label</a>
+						  	</div>
+					</div>
 				</div>
 			</div>
 		<% } %>
