@@ -85,10 +85,13 @@
 					</div>
 					<div class="ui feed segment">
 						<h4 class="ui red header">关键词</h4>
-						<a class="ui blue label" style="margin-top:5px">Blue Label</a>
-						<a class="ui blue label" style="margin-top:5px">Blue Label</a>
-						<a class="ui blue label" style="margin-top:5px">Blue Label</a>
-						<a class="ui blue label" style="margin-top:5px">Blue Label</a>
+						<% if(keyword == null) {%>
+							<h5 class="ui yellow header">提取关键词失败T^T</h5>
+						<% } else { %>
+							<% for(i = 0; i < (keyword.length-1); i++){%>
+								<a class="ui blue label" style="margin-top:5px"><%= keyword[i]%></a>
+							<% } %>
+						<% } %>
 					</div>
 				</div>
 			</div>
