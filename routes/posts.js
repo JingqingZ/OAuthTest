@@ -54,12 +54,10 @@ router.get('^/[0-9]+$', function(req, res) {
 											var keyword = null
 											weiboapi.getKeyword(data.statuses, function(err, kw){
 												kw = kw.toString();
-												console.log(kw);
 												if(err){
 													keyword = null;
 												} else {
-													//keyword = kw.split(',');
-													//console.log(keyword);
+													keyword = kw.split(',');
 												}
 												res.render("posts", {"err": "success", "data": data.statuses, "user": user, "keyword": keyword});
 											})
