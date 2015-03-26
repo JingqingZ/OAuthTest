@@ -4,11 +4,9 @@ var MongoClient = require('mongodb').MongoClient
 var format = require('util').format;
 var async = require('async');
 var weiboapi = require('./weiboapi');
- 
 
-/* GET home page. */
-router.get('/show', function(req, res) {
-	MongoClient.connect('mongodb://127.0.0.1:27017/weibodb', function(err, db) {
+function getUsersInfo(callback){
+    MongoClient.connect('mongodb://127.0.0.1:27017/weibodb', function(err, db) {
         if (err) {
             res.status(err.status || 500);
             res.render('error', {
@@ -47,27 +45,34 @@ router.get('/show', function(req, res) {
                     })
                 },
                 function(err, user){
-                    if (err) {
-                        res.status(err.status || 500);
-                        res.render('error', {
-                            message: err.message,
-                            error: {}
-                        });
-                    } else {
-                        var users = [];
-                        //console.log(JSON.stringify(info[0][1]))
-                        for (var i = 0; i < user.length; i++) {
-                            if(user[i] == null)
-                                continue;
-                            users = users.concat(user[i]);
-                        };
-                        //res.end(JSON.stringify(stat));
-                        res.render('userlist', {"userlist": users});
-                    }
+                    callback(err, user);
                     // Let's close the db 
                     db.close();
                 })
              });
+        }
+    })
+}
+
+/* GET home page. */
+router.get('/show', function(req, res) {
+	getUsersInfo(function(err, user){
+        if (err) {
+            res.status(err.status || 500);
+            res.render('error', {
+                message: err.message,
+                error: {}
+            });
+        } else {
+            var users = [];
+            //console.log(JSON.stringify(info[0][1]))
+            for (var i = 0; i < user.length; i++) {
+                if(user[i] == null)
+                    continue;
+                users = users.concat(user[i]);
+            };
+            //res.end(JSON.stringify(stat));
+            res.render('userlist', {"userlist": users});
         }
     })
 });
