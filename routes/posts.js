@@ -65,7 +65,7 @@ function getPosts(id, callback){
 														keyword = kw.split(',');
 													}
 												}
-												callback("success", data.statuses, user, keyword});
+												callback("success", data.statuses, user, keyword);
 											})
 										}
 									}
