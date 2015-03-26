@@ -104,4 +104,16 @@ router.get('^/[0-9]+$', function(req, res) {
     })
 })
 
+router.get('^/[0-9]+/keyword$', function(req, res) {
+	var geturl = require('url').parse(req.url, true).pathname.split('/');
+	geturl = geturl[1];
+    getPosts(geturl, function(err, statuses, user, keyword){
+    	if (err != "success") {
+    		res.end({"error": err});
+    	} else {
+    		res.end(JSON.stringify({"keyword":keyword}));
+    	}
+    })
+})
+
 module.exports = router;
