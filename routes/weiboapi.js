@@ -49,7 +49,7 @@ exports.getKeyword = function(statuses, callback){
 			if(err){
 				callback(err, null);
 			} else {
-				console.log("keyword:"+keyword.toString());
+				//console.log("keyword:"+keyword.toString());
 				callback(null, keyword);
 			}
 		}))
