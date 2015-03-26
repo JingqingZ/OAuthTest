@@ -33,7 +33,7 @@ exports.getUser = function(access_token, uid, callback){
 	});
 }
 
-exports.getKeyword = function(statuses){
+exports.getKeyword = function(statuses, callback){
 	var text = "";
 	for (var i = 0; i < statuses.length; i++) {
 		text += statuses[i].text;
