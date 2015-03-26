@@ -90,7 +90,7 @@ router.get('/', function(req, res) {
                     continue;
                 users = users.concat(user[i]);
             };
-            res.end(users);
+            res.end(JSON.stringify(users));
         }
     })
 });
