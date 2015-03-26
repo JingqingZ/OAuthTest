@@ -54,7 +54,7 @@ function getUsersInfo(callback){
     })
 }
 
-/* GET home page. */
+/* GET show page. */
 router.get('/show', function(req, res) {
 	getUsersInfo(function(err, user){
         if (err) {
@@ -73,6 +73,24 @@ router.get('/show', function(req, res) {
             };
             //res.end(JSON.stringify(stat));
             res.render('userlist', {"userlist": users});
+        }
+    })
+});
+
+/* GET home page. */
+router.get('/', function(req, res) {
+    getUsersInfo(function(err, user){
+        if (err) {
+            res.end({"error": err.message});
+        } else {
+            var users = [];
+            //console.log(JSON.stringify(info[0][1]))
+            for (var i = 0; i < user.length; i++) {
+                if(user[i] == null)
+                    continue;
+                users = users.concat(user[i]);
+            };
+            res.end(users);
         }
     })
 });
