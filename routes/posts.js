@@ -25,7 +25,7 @@ router.get('^/[0-9]+$', function(req, res) {
 				} else if(results == null || results.length <= 0){
 					res.render("posts", {"err": "nosuchuser"});
 				} else {
-					weiboapi.getWeibo(results[0].access_token, results[0].uid, 0, 0, 10, function(err, data){
+					weiboapi.getWeibo(results[0].access_token, results[0].uid, 0, 0, 100, function(err, data){
 						if(err) {
 							res.render("posts", {"err": "weibonotreach"});
 						} else {
@@ -51,8 +51,17 @@ router.get('^/[0-9]+$', function(req, res) {
 										if(typeof(user.id) == 'undefined'){
 											res.render("posts", {"err": "weibonotreach"});
 										} else {
-											//console.log(JSON.stringify(user));
-											res.render("posts", {"err": "success", "data": data.statuses, "user": user});
+											var keyword = null
+											weiboapi.getKeyword(data.statuses, function(err, kw){
+												console.log(kw);
+												if(err){
+													keyword = null;
+												} else {
+													keyword = kw.split(',');
+													console.log(keyword);
+												}
+												res.render("posts", {"err": "success", "data": data.statuses, "user": user, "keyword": keyword});
+											})
 										}
 									}
 				    			})
