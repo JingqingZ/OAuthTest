@@ -60,9 +60,11 @@ router.get('^/[0-9]+$', function(req, res) {
 												} else {
 													//console.log(kw.length)
 													var pos = kw.indexOf("html", 0);
-													console.log(pos);
-													keyword = kw.split(',');
-													//console.log(keyword);
+													if(pos >= 0){
+														keyword = null;
+													} else {
+														keyword = kw.split(',');
+													}
 												}
 												res.render("posts", {"err": "success", "data": data.statuses, "user": user, "keyword": keyword});
 											})
