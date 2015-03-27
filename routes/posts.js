@@ -11,6 +11,7 @@ router.get('/show', function(req, res) {
     res.redirect("/")
 })
 
+// get posts of certain user(id)
 function getPosts(id, callback){
 	MongoClient.connect('mongodb://127.0.0.1:27017/weibodb', function(err, db) {
 		if (err) {
@@ -22,10 +23,12 @@ function getPosts(id, callback){
 					console.log("Database Error! " + err.message);
 					callback("database", null, null, null);
 				} else if(results == null || results.length <= 0){
+					// cannot find certain user in database
 					rcallback("nosuchuser", null, null, null);
 				} else {
 					weiboapi.getWeibo(results[0].access_token, results[0].uid, 0, 0, 100, function(err, data){
 						if(err) {
+							// cannot get weibo of certain user from weibo.com
 							callback("weibonotreach", null, null, null);
 						} else {
 							try {
@@ -51,13 +54,13 @@ function getPosts(id, callback){
 											callback("weibonotreach", null, null, null);
 										} else {
 											var keyword = []
+											// get keyword of recent 100 posts
 											weiboapi.getKeyword(data.statuses, function(err, kw){
 												kw = kw.toString();
-												//console.log(kw);
 												if(err){
 													keyword = null;
 												} else {
-													//console.log(kw.length)
+													// parse keyword
 													var pos = kw.indexOf("html", 0);
 													if(pos >= 0){
 														keyword = null;
@@ -80,6 +83,7 @@ function getPosts(id, callback){
 	});
 }
 
+// return webpage to show posts, user info and keywords
 router.get('^/[0-9]+/show$', function(req, res) {
 	var geturl = require('url').parse(req.url, true).pathname.split('/');
 	geturl = geturl[1];
@@ -92,6 +96,7 @@ router.get('^/[0-9]+/show$', function(req, res) {
     })
 })
 
+// return user posts in array of JSON format
 router.get('^/[0-9]+$', function(req, res) {
 	var geturl = require('url').parse(req.url, true).pathname.split('/');
 	geturl = geturl[1];
@@ -104,6 +109,7 @@ router.get('^/[0-9]+$', function(req, res) {
     })
 })
 
+// return keywords in JSON format
 router.get('^/[0-9]+/keyword$', function(req, res) {
 	var geturl = require('url').parse(req.url, true).pathname.split('/');
 	geturl = geturl[1];

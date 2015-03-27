@@ -5,6 +5,7 @@ var format = require('util').format;
 var async = require('async');
 var weiboapi = require('./weiboapi');
 
+// get users info from weibo.com
 function getUsersInfo(callback){
     MongoClient.connect('mongodb://127.0.0.1:27017/weibodb', function(err, db) {
         if (err) {
@@ -17,7 +18,7 @@ function getUsersInfo(callback){
             var allusers = []
             var collection = db.collection('users');
             collection.find().toArray(function(err, results) {
-                //console.dir(results);
+                // get all legal users from databse
                 results.forEach(function(userinfo){
                     if(typeof(userinfo.access_token) == 'undefined'){
                         collection.remove(userinfo);
@@ -25,7 +26,6 @@ function getUsersInfo(callback){
                         allusers[allusers.length] = userinfo;
                     }
                 });
-                //res.end(JSON.stringify(allusers));
                 async.map(allusers, function(item, done){
                     weiboapi.getUser(item.access_token, item.uid, function(err, user){
                         if (err) {
@@ -46,7 +46,7 @@ function getUsersInfo(callback){
                 },
                 function(err, user){
                     callback(err, user);
-                    // Let's close the db 
+                    // close the db 
                     db.close();
                 })
              });
@@ -54,7 +54,7 @@ function getUsersInfo(callback){
     })
 }
 
-/* GET show page. */
+// return webpage to show all users
 router.get('/show', function(req, res) {
 	getUsersInfo(function(err, user){
         if (err) {
@@ -77,7 +77,7 @@ router.get('/show', function(req, res) {
     })
 });
 
-/* GET home page. */
+// return all users info in array of JSON format
 router.get('/', function(req, res) {
     getUsersInfo(function(err, user){
         if (err) {

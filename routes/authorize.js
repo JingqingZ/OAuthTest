@@ -8,8 +8,10 @@ var key = '2627706825'
 var secret = '773eb51c7411b179002758188b92da92'
 var reuri = 'zjq.101a.net/authorize/getcode'
 
+//get access token from weibo
 function getAccessToken(code, callback) {
 
+    // create https request
     var data = {
         "client_id": key,
         "client_secret": secret,
@@ -19,7 +21,6 @@ function getAccessToken(code, callback) {
     };
 
     data = require('querystring').stringify(data);
-    //console.log(data);
     var opt = {
         method: "POST",
         host: "api.weibo.com",
@@ -30,9 +31,10 @@ function getAccessToken(code, callback) {
             "Content-Length": data.length
         }
     };
+
+    //get feedback and extract data
     var https = require("https")
     var req = https.request(opt, function (serverFeedback) {
-    	//console.log("in request");
     	serverFeedback.pipe(bl(function(err, data){
     		if (err) {
                 console.log('Error! Authorize feedback error!');
@@ -49,7 +51,6 @@ function getAccessToken(code, callback) {
                     console.log('Error! Get Access Token error!');
                     callback(null);
                 } else {
-                    //console.log(data);
                     callback(data);
                 }
     		}
@@ -59,12 +60,14 @@ function getAccessToken(code, callback) {
     req.end();
 }
 
-/* GET home page. */
+/* GET authorize home page. */
 router.get('/', function(req, res, next) {
+    //redirect to weibo.com to authorize
 	res.redirect('https://api.weibo.com/oauth2/authorize?client_id=' + key + '&response_type=code&redirect_uri=' + reuri);
 });
 
 router.get('/getcode', function(req, res){
+    //get code from weibo.com and use the code to get access token
 	var geturl = require('url').parse(req.url, true)
 	var code = geturl.query.code.toString()
 	getAccessToken(code, function(access){
@@ -72,12 +75,14 @@ router.get('/getcode', function(req, res){
             res.render('authorize', {'result': "error", 'info': '无法获得授权码！'});
         } else {
             console.log(JSON.stringify(access));
+            //connect to mongodb to store user access token
             MongoClient.connect('mongodb://127.0.0.1:27017/weibodb', function(err, db) {
                 if(err) {
                     res.render('authorize', {'result': "error", 'info': '数据库链接失败！'});
                 } else {
                     var collection = db.collection('users');
                     async.series({
+                        // if current user already exists in database then remove it
                         remove: function(done){
                             collection.remove({"uid": access.uid}, function(err, docs) {
                                 if(err) {
@@ -88,6 +93,7 @@ router.get('/getcode', function(req, res){
                                 }
                             });
                         },
+                        // insert user info into database
                         insert: function(done){
                             collection.insert(access, function(err, docs) {
                                 if(err) {
@@ -113,6 +119,7 @@ router.get('/getcode', function(req, res){
     });
 })
 
+// if users cancel the authorization
 router.get('/cancel', function(req, res, next) {
     res.render('authorize', {'result': "cancel"});
 });

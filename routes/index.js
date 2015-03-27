@@ -19,8 +19,9 @@ router.get('/', function(req, res, next) {
 		} else {
 			var allusers = []
 			var collection = db.collection('users');
+			// get info of all users in database
 			collection.find().toArray(function(err, results) {
-		    	//console.dir(results);
+				// remove users that can not get access token
 		    	results.forEach(function(userinfo){
 		    		if(typeof(userinfo.access_token) == 'undefined'){
 		    			collection.remove(userinfo);
@@ -28,23 +29,23 @@ router.get('/', function(req, res, next) {
 		    			allusers[allusers.length] = userinfo;
 		    		}
 		    	});
-		        //res.end(JSON.stringify(allusers));
+		    	// get weibo of all legal users from weibo.com
 		        async.map(allusers, function(item, done){
 		        	weiboapi.getWeibo(item.access_token, item.uid, 0, 0, 10, function(err, data){
 						if (err) {
 							done(err);
 						} else {
-							//data = JSON.parse(data.toString());
-							//console.log(data.toString());
 							try {
 								data = JSON.parse(data)
 							} catch(err) {
 								done(err);
 							}
+							// remove users that cancelled authorization
 							if(typeof(data.statuses) == 'undefined'){
 				    			collection.remove({"access_token": item.access_token}, function(err, docs) {});
 				    			done(null, [null, null]);
 				    		} else {
+				    			// get user info from weibo.com
 				    			weiboapi.getUser(item.access_token, item.uid, function(err, user){
 				    				if (err) {
 										done(err);
@@ -54,12 +55,10 @@ router.get('/', function(req, res, next) {
 										} catch(err) {
 											done(err);
 										}
-										//console.log(JSON.stringify(user));
 										done(null, [data, user]);
 									}
 				    			})
 				    		}
-							//res.render('index', {"data": JSON.parse(data)});
 						}
 					})
 		        },
@@ -71,17 +70,14 @@ router.get('/', function(req, res, next) {
 							error: {}
 						});
 					} else {
+						// parse all data, including weibo and user info
 						var stat = [], users = [];
-						//console.log(JSON.stringify(info[0][1]))
 						for (var i = 0; i < info.length; i++) {
 							if(info[i][0] == null)
 								continue;
 							stat = stat.concat(info[i][0].statuses);
 							users = users.concat(info[i][1]);
 						};
-						//res.end(JSON.stringify(stat));
-						//var date = new Date(stat[0].created_at);
-						//console.log(Date.UTC(date.getFullYear(),date.getMonth(),date.getDate(),date.getHours(),date.getMinutes(),date.getSeconds()));
 						stat.sort(function(x, y){
 							var datex = new Date(x.created_at);
 							var datey = new Date(y.created_at);
@@ -96,7 +92,7 @@ router.get('/', function(req, res, next) {
 						})
 						res.render('index', {"data": stat, "users": users});
 					}
-		        	// Let's close the db 
+		        	// close the db 
 					db.close();
 		        })
 		     });
